@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PumpSim Pro - Balina Motorlu</title>
+    <title>PumpSim Pro - 20$ Bakiye</title>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0b0e14; color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
@@ -27,7 +27,6 @@
         .price-box { text-align: right; }
         .price { font-size: 2.2em; color: #26a69a; font-family: monospace; font-weight: bold; transition: 0.3s; }
 
-        /* Zaman Dilimi Araç Çubuğu */
         .toolbar { display: flex; justify-content: flex-start; background: #0b0e14; padding: 5px 10px; border-radius: 5px 5px 0 0; border: 1px solid #2b313f; border-bottom: none; gap: 5px; }
         .tf-btn { background: transparent; color: #888; border: none; padding: 8px 12px; cursor: pointer; font-weight: bold; border-radius: 4px; transition: 0.2s; font-size: 0.9em; }
         .tf-btn:hover { color: #fff; }
@@ -36,13 +35,13 @@
         #chart { width: 100%; height: 420px; background: #0b0e14; border-radius: 0 0 5px 5px; border: 1px solid #2b313f; }
 
         .controls { display: flex; gap: 15px; margin-top: 20px; }
-        .btn { flex: 1; padding: 20px; font-size: 1.5em; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; color: white; transition: 0.1s; }
+        .btn { flex: 1; padding: 20px; font-size: 1.5em; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; color: white; transition: 0.1s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .btn span { font-size: 0.6em; font-weight: normal; opacity: 0.8; margin-top: 5px; }
         .btn-buy { background: #26a69a; }
         .btn-buy:active { background: #1d7d74; transform: scale(0.95); }
         .btn-sell { background: #ef5350; }
         .btn-sell:active { background: #c63936; transform: scale(0.95); }
 
-        /* Bildirim (Toast) Kutusu Tasarımı */
         #alertBox { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; font-weight: bold; color: white; display: none; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.6); font-size: 1.2em; animation: fadeIn 0.3s ease-out; border: 2px solid white; }
         @keyframes fadeIn { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
     </style>
@@ -53,7 +52,7 @@
 
     <div class="header">
         <div class="logo">💊 PumpSim Pro</div>
-        <div class="wallet">Bakiye: $<span id="cashDisplay">2000.00</span></div>
+        <div class="wallet">Bakiye: $<span id="cashDisplay">20.00</span></div>
     </div>
 
     <div class="container" id="setupScreen">
@@ -85,14 +84,20 @@
         <div id="chart"></div>
 
         <div class="controls">
-            <button class="btn btn-buy" onclick="al()">AL (100$)</button>
-            <button class="btn btn-sell" onclick="sat()">TÜMÜNÜ SAT</button>
+            <button class="btn btn-buy" onclick="al()">
+                AL
+                <span>5$ Harca</span>
+            </button>
+            <button class="btn btn-sell" onclick="sat()">
+                TÜMÜNÜ SAT
+                <span>Parayı Çek</span>
+            </button>
         </div>
     </div>
 
 <script>
-    // DEĞİŞKENLER
-    let bakiyeUSD = 2000.00;
+    // DEĞİŞKENLER (BAŞLANGIÇ BAKİYESİ 20$ YAPILDI)
+    let bakiyeUSD = 20.00;
     let bakiyeToken = 0;
     let fiyat = 0.001000;
     
@@ -101,18 +106,14 @@
     let seciliZamanDilimi = 1; 
     let guncelZaman = new Date().getTime() - (5 * 60 * 60 * 1000); 
 
-    // BİLDİRİM GÖSTERİCİ (YENİ)
     function bildirimGoster(mesaj, tip) {
         let alertKutusu = document.getElementById("alertBox");
         alertKutusu.innerText = mesaj;
         alertKutusu.style.backgroundColor = tip === 'pump' ? '#26a69a' : '#ef5350';
         alertKutusu.style.display = "block";
-        
-        // 3 saniye sonra bildirimi gizle
         setTimeout(() => { alertKutusu.style.display = "none"; }, 3000);
     }
 
-    // 1. SİSTEMİ BAŞLAT
     function baslat() {
         let isim = document.getElementById("coinInput").value.trim().toUpperCase();
         if(isim === "") isim = "PUMA";
@@ -128,29 +129,22 @@
         setInterval(piyasaHareketiVeYeniMum, 2000); 
     }
 
-    // 2. GEÇMİŞ VERİ ÜRETİCİ
     function gecmisVeriUret() {
         let sahteFiyat = 0.0002; 
-        
         for(let i = 0; i < 300; i++) { 
             guncelZaman += 60000; 
             let acilis = sahteFiyat;
             sahteFiyat = sahteFiyat * (1 + (Math.random() * 0.04 - 0.02)); 
-            
             if(i === 299) sahteFiyat = 0.001000; 
 
             let yuksek = Math.max(acilis, sahteFiyat) * (1 + Math.random() * 0.005);
             let dusuk = Math.min(acilis, sahteFiyat) * (1 - Math.random() * 0.005);
             
-            anaVeriHavuzu.push({
-                x: guncelZaman,
-                y: [acilis, yuksek, dusuk, sahteFiyat]
-            });
+            anaVeriHavuzu.push({ x: guncelZaman, y: [acilis, yuksek, dusuk, sahteFiyat] });
         }
         fiyat = sahteFiyat;
     }
 
-    // 3. ZAMAN DİLİMİ DEĞİŞTİRME
     function zamanDilimiDegistir(dakika) {
         seciliZamanDilimi = dakika;
         document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('active'));
@@ -158,7 +152,6 @@
         grafikGuncelle(); 
     }
 
-    // 4. VERİLERİ GRUPLAMA
     function gruplanmisVeriGetir() {
         if (seciliZamanDilimi === 1) return anaVeriHavuzu.slice(-100); 
         
@@ -181,7 +174,6 @@
         return gruplanmis.slice(-80); 
     }
 
-    // 5. ARAYÜZ GÜNCELLEME
     function arayuzuGuncelle() {
         document.getElementById("cashDisplay").innerText = bakiyeUSD.toFixed(2);
         document.getElementById("priceDisplay").innerText = fiyat.toFixed(6);
@@ -195,21 +187,21 @@
         }
     }
 
-    // 6. AL BUTONU
+    // AL BUTONU (Artık her tıklamada 5$ harcıyor)
     function al() {
-        if(bakiyeUSD >= 100) {
-            let alinanMiktar = 100 / fiyat;
-            bakiyeUSD -= 100;
+        if(bakiyeUSD >= 5) {
+            let alinanMiktar = 5 / fiyat;
+            bakiyeUSD -= 5;
             bakiyeToken += alinanMiktar;
             
             fiyat = fiyat * (1 + (Math.random() * 0.06 + 0.03));
             sonMumuGuncelleVeCiz();
         } else {
-            alert("Bakiyen Yetersiz!");
+            alert("Bakiyen Yetersiz! (En az 5$ lazım)");
         }
     }
 
-    // 7. SAT BUTONU
+    // SAT BUTONU
     function sat() {
         if(bakiyeToken > 0) {
             let eldeEdilen = bakiyeToken * fiyat;
@@ -235,43 +227,29 @@
         grafikGuncelle();
     }
 
-    // 9. PUMP/DUMP BALİNA MOTORU (GÜNCELLENDİ)
     function piyasaHareketiVeYeniMum() {
-        guncelZaman += 60000; // 1 Dakika ileri
+        guncelZaman += 60000; 
         
-        let zar = Math.random(); // 0 ile 1 arası rastgele sayı
+        let zar = Math.random(); 
         
         if (zar < 0.04) {
-            // %4 İHTİMALLE PUMP (Balina Alımı)
-            // Fiyatı aniden %10 ile %25 arası fırlatır
             fiyat = fiyat * (1 + (Math.random() * 0.15 + 0.10));
             bildirimGoster("🐋 BALİNA GİRDİ: DEV PUMP!", "pump");
-            
         } else if (zar > 0.96) {
-            // %4 İHTİMALLE DUMP (Panik Satışı)
-            // Fiyatı aniden %10 ile %25 arası düşürür
             fiyat = fiyat * (1 - (Math.random() * 0.15 + 0.10));
             if(fiyat < 0.000001) fiyat = 0.000001;
             bildirimGoster("🚨 PANİK SATIŞI: DEV DUMP!", "dump");
-            
         } else {
-            // %92 İHTİMALLE NORMAL PİYASA (-%1 ile +%1 dalgalanma)
             fiyat = fiyat * (1 + (Math.random() * 0.02 - 0.01));
         }
         
-        anaVeriHavuzu.push({
-            x: guncelZaman,
-            y: [fiyat, fiyat, fiyat, fiyat]
-        });
-
-        // Veri havuzu çok şişerse eskileri sil (Kasma yapmaması için)
+        anaVeriHavuzu.push({ x: guncelZaman, y: [fiyat, fiyat, fiyat, fiyat] });
         if(anaVeriHavuzu.length > 1500) anaVeriHavuzu.shift();
         
         arayuzuGuncelle();
         grafikGuncelle();
     }
 
-    // 10. GRAFİK KURULUMU VE GÜNCELLEMESİ
     function grafikKur() {
         var options = {
             series: [{ data: gruplanmisVeriGetir() }],
