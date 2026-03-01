@@ -2,49 +2,197 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>DELİ OYUNLAR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PumpSim - Çökmeyen Sürüm</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style>
-        body { background: #000; color: #fff; font-family: 'Arial Black', sans-serif; text-align: center; margin: 0; padding: 20px; }
-        h1 { color: #ff0000; font-size: 50px; text-shadow: 2px 2px #fff; margin-bottom: 10px; }
-        p { color: #888; margin-bottom: 40px; }
-        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: auto; }
-        .oyun-penceresi { background: #111; border: 4px solid #ff0000; border-radius: 15px; padding: 15px; width: 350px; transition: 0.3s; }
-        .oyun-penceresi:hover { transform: scale(1.05); box-shadow: 0 0 20px #ff0000; }
-        iframe { width: 100%; height: 250px; border: none; border-radius: 10px; background: #222; }
-        h3 { margin-top: 15px; font-size: 22px; text-transform: uppercase; }
-        footer { margin-top: 50px; color: #555; font-size: 14px; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0b0e14; color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .header { width: 100%; max-width: 800px; display: flex; justify-content: space-between; padding: 15px 20px; background: #151924; border-radius: 8px; margin-bottom: 20px; box-sizing: border-box; border: 1px solid #2b313f; }
+        .logo { font-size: 1.5em; font-weight: bold; color: #14F195; }
+        .wallet { font-size: 1.2em; font-weight: bold; color: #fff; background: #222836; padding: 10px 15px; border-radius: 5px; }
+        
+        .container { width: 100%; max-width: 800px; background: #151924; padding: 20px; border-radius: 8px; border: 1px solid #2b313f; text-align: center; }
+        
+        #setupScreen { display: block; padding: 40px 0; }
+        input[type="text"] { width: 60%; padding: 15px; font-size: 1.5em; text-align: center; border-radius: 5px; border: 2px solid #2b313f; background: #0b0e14; color: white; text-transform: uppercase; font-weight: bold; }
+        .btn-launch { background: #14F195; color: black; font-size: 1.3em; font-weight: bold; padding: 15px 40px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; transition: 0.1s; }
+        .btn-launch:active { transform: scale(0.95); }
+
+        #marketScreen { display: none; }
+        .top-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .coin-name { font-size: 2em; font-weight: bold; }
+        .price { font-size: 2em; color: #26a69a; font-family: monospace; font-weight: bold; }
+        .inventory { text-align: left; color: #aaa; margin-bottom: 10px; font-size: 1.1em; }
+        
+        #chart { width: 100%; height: 400px; background: #0b0e14; border-radius: 5px; border: 1px solid #2b313f; }
+
+        .controls { display: flex; gap: 15px; margin-top: 20px; }
+        .btn { flex: 1; padding: 20px; font-size: 1.5em; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; color: white; transition: 0.1s; }
+        .btn-buy { background: #26a69a; }
+        .btn-buy:active { background: #1d7d74; transform: scale(0.95); }
+        .btn-sell { background: #ef5350; }
+        .btn-sell:active { background: #c63936; transform: scale(0.95); }
     </style>
 </head>
 <body>
 
-    <h1>DELİ OYUNLAR</h1>
-    <p>Engelleri Yıktık! Oyunlar Direkt Sitenin İçinde Açılır.</p>
+    <div class="header">
+        <div class="logo">💊 PumpSim</div>
+        <div class="wallet">USD: $<span id="cashDisplay">2000.00</span></div>
+    </div>
 
-    <div class="grid">
-        <div class="oyun-penceresi">
-            <iframe src="https://www.crazygames.com/embed/moto-x3m"></iframe>
-            <h3>Moto X3M (Motor)</h3>
-        </div>
+    <div class="container" id="setupScreen">
+        <h2>🚀 Lansmana Hazır Mısın?</h2>
+        <input type="text" id="coinInput" value="PUMA" placeholder="COIN ADI GİR">
+        <br>
+        <button class="btn-launch" onclick="baslat()">Piyasaya Sür</button>
+    </div>
 
-        <div class="oyun-penceresi">
-            <iframe src="https://www.crazygames.com/embed/smash-karts"></iframe>
-            <h3>Smash Karts (Savaş)</h3>
+    <div class="container" id="marketScreen">
+        <div class="top-info">
+            <div class="coin-name" id="nameDisplay">COIN</div>
+            <div class="price">$<span id="priceDisplay">0.001000</span></div>
         </div>
-
-        <div class="oyun-penceresi">
-            <iframe src="https://www.crazygames.com/embed/shellshockersio"></iframe>
-            <h3>Shell Shockers (Silah)</h3>
-        </div>
+        <div class="inventory" id="tokenDisplay">Cüzdan: 0 Adet</div>
         
-        <div class="oyun-penceresi">
-            <iframe src="https://www.crazygames.com/embed/basketball-stars-2019"></iframe>
-            <h3>Basketbol Yıldızları</h3>
+        <div id="chart"></div>
+
+        <div class="controls">
+            <button class="btn btn-buy" onclick="al()">AL (100$)</button>
+            <button class="btn btn-sell" onclick="sat()">TÜMÜNÜ SAT</button>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 Vak Vak Yatırım Dünyası | Dupscoin Global
-    </footer>
+<script>
+    // DEĞİŞKENLER
+    let bakiyeUSD = 2000.00;
+    let bakiyeToken = 0;
+    let fiyat = 0.001000;
+    
+    // GRAFİK DEĞİŞKENLERİ
+    let chart;
+    let mumVerileri = [];
+    let aktifMum = null;
+    let zamanSayaci = new Date().getTime();
+
+    // SİSTEMİ BAŞLAT
+    function baslat() {
+        let isim = document.getElementById("coinInput").value.trim().toUpperCase();
+        if(isim === "") isim = "PUMA";
+        
+        document.getElementById("nameDisplay").innerText = "$" + isim;
+        document.getElementById("setupScreen").style.display = "none";
+        document.getElementById("marketScreen").style.display = "block";
+        
+        grafikKur();
+        arayuzuGuncelle();
+        
+        // Arka plan hareketleri
+        setInterval(piyasaHareketi, 2000);
+        setInterval(yeniMumAc, 5000);
+    }
+
+    // ARAYÜZ GÜNCELLEME (Butonların kitlenmemesini sağlayan ana yapı)
+    function arayuzuGuncelle() {
+        document.getElementById("cashDisplay").innerText = bakiyeUSD.toFixed(2);
+        document.getElementById("priceDisplay").innerText = fiyat.toFixed(6);
+        document.getElementById("tokenDisplay").innerText = "Cüzdan: " + Math.floor(bakiyeToken).toLocaleString() + " Adet";
+        
+        // Rengi ayarla
+        if(aktifMum && fiyat >= aktifMum.y[0]) {
+            document.getElementById("priceDisplay").style.color = "#26a69a";
+        } else {
+            document.getElementById("priceDisplay").style.color = "#ef5350";
+        }
+    }
+
+    // AL BUTONU
+    function al() {
+        if(bakiyeUSD >= 100) {
+            let alinanMiktar = 100 / fiyat;
+            bakiyeUSD -= 100;
+            bakiyeToken += alinanMiktar;
+            
+            // Fiyatı yapay olarak %4 ile %10 arası fırlat
+            fiyat = fiyat * (1 + (Math.random() * 0.06 + 0.04));
+            
+            arayuzuGuncelle();
+            grafikGuncelle(fiyat);
+        } else {
+            alert("Bakiyen Yetersiz!");
+        }
+    }
+
+    // SAT BUTONU
+    function sat() {
+        if(bakiyeToken > 0) {
+            let eldeEdilen = bakiyeToken * fiyat;
+            bakiyeUSD += eldeEdilen;
+            bakiyeToken = 0;
+            
+            // Fiyatı yapay olarak %5 ile %15 arası çak
+            fiyat = fiyat * (1 - (Math.random() * 0.10 + 0.05));
+            if(fiyat < 0.000001) fiyat = 0.000001;
+            
+            arayuzuGuncelle();
+            grafikGuncelle(fiyat);
+        } else {
+            alert("Satacak Coin Yok!");
+        }
+    }
+
+    // GRAFİK KURULUMU
+    function grafikKur() {
+        var options = {
+            series: [{ data: [] }],
+            chart: { type: 'candlestick', height: 400, background: '#0b0e14', animations: { enabled: false }, toolbar: { show: false } },
+            theme: { mode: 'dark' },
+            xaxis: { type: 'datetime', labels: { show: false }, axisBorder: { show: false } },
+            yaxis: { tooltip: { enabled: true }, labels: { formatter: function(val) { return val.toFixed(6); } } },
+            plotOptions: { candlestick: { colors: { upward: '#26a69a', downward: '#ef5350' }, wick: { useFillColor: true } } },
+            grid: { borderColor: '#2b313f' }
+        };
+
+        chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+        
+        yeniMumAc();
+    }
+
+    // YENİ MUM OLUŞTUR
+    function yeniMumAc() {
+        zamanSayaci += 5000; 
+        aktifMum = {
+            x: zamanSayaci,
+            y: [fiyat, fiyat, fiyat, fiyat] // [Açılış, En Yüksek, En Düşük, Kapanış]
+        };
+        
+        mumVerileri.push(aktifMum);
+        if(mumVerileri.length > 30) mumVerileri.shift(); // Grafiği temiz tut
+        
+        try { chart.updateSeries([{ data: mumVerileri }]); } catch(e){}
+    }
+
+    // MEVCUT MUMU GÜNCELLE
+    function grafikGuncelle(yeniFiyat) {
+        if(!aktifMum) return;
+        
+        aktifMum.y[3] = yeniFiyat; // Kapanışı güncelle
+        if(yeniFiyat > aktifMum.y[1]) aktifMum.y[1] = yeniFiyat; // En yükseği güncelle
+        if(yeniFiyat < aktifMum.y[2]) aktifMum.y[2] = yeniFiyat; // En düşüğü güncelle
+        
+        try { chart.updateSeries([{ data: mumVerileri }]); } catch(e){}
+    }
+
+    // BOT HAREKETLERİ
+    function piyasaHareketi() {
+        let dalgalanma = 1 + (Math.random() * 0.02 - 0.01); // %1 yukarı veya aşağı
+        fiyat = fiyat * dalgalanma;
+        
+        arayuzuGuncelle();
+        grafikGuncelle(fiyat);
+    }
+</script>
 
 </body>
 </html>
