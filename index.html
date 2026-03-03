@@ -3,274 +3,367 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PumpSim Pro - 20$ Bakiye</title>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <title>Profesyonel Havadan Çekim & Drone Videografi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #0b0e14; color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
-        .header { width: 100%; max-width: 900px; display: flex; justify-content: space-between; padding: 15px 20px; background: #151924; border-radius: 8px; margin-bottom: 20px; box-sizing: border-box; border: 1px solid #2b313f; }
-        .logo { font-size: 1.5em; font-weight: bold; color: #14F195; }
-        .wallet { font-size: 1.2em; font-weight: bold; color: #fff; background: #222836; padding: 10px 15px; border-radius: 5px; border: 1px solid #3d4659; }
-        
-        .container { width: 100%; max-width: 900px; background: #151924; padding: 20px; border-radius: 8px; border: 1px solid #2b313f; text-align: center; }
-        
-        #setupScreen { display: block; padding: 50px 0; }
-        input[type="text"] { width: 60%; padding: 15px; font-size: 1.5em; text-align: center; border-radius: 5px; border: 2px solid #2b313f; background: #0b0e14; color: white; text-transform: uppercase; font-weight: bold; }
-        .btn-launch { background: #14F195; color: black; font-size: 1.3em; font-weight: bold; padding: 15px 40px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; transition: 0.1s; }
-        .btn-launch:active { transform: scale(0.95); }
+        :root {
+            --primary-color: #9400D3;
+            --secondary-color: #4b0082;
+            --accent-gold: #d4af37;
+            --bg-dark: #0a0a0a;
+            --text-light: #f5f5f5;
+            --neon-glow: 0 0 15px rgba(148, 0, 211, 0.6), 0 0 30px rgba(148, 0, 211, 0.4);
+        }
 
-        #marketScreen { display: none; }
-        
-        .market-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
-        .coin-info { text-align: left; }
-        .coin-name { font-size: 2em; font-weight: bold; margin-bottom: 5px; }
-        .inventory { color: #aaa; font-size: 1.1em; }
-        .price-box { text-align: right; }
-        .price { font-size: 2.2em; color: #26a69a; font-family: monospace; font-weight: bold; transition: 0.3s; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-        .toolbar { display: flex; justify-content: flex-start; background: #0b0e14; padding: 5px 10px; border-radius: 5px 5px 0 0; border: 1px solid #2b313f; border-bottom: none; gap: 5px; }
-        .tf-btn { background: transparent; color: #888; border: none; padding: 8px 12px; cursor: pointer; font-weight: bold; border-radius: 4px; transition: 0.2s; font-size: 0.9em; }
-        .tf-btn:hover { color: #fff; }
-        .tf-btn.active { background: #2b313f; color: #14F195; }
-        
-        #chart { width: 100%; height: 420px; background: #0b0e14; border-radius: 0 0 5px 5px; border: 1px solid #2b313f; }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
 
-        .controls { display: flex; gap: 15px; margin-top: 20px; }
-        .btn { flex: 1; padding: 20px; font-size: 1.5em; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; color: white; transition: 0.1s; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .btn span { font-size: 0.6em; font-weight: normal; opacity: 0.8; margin-top: 5px; }
-        .btn-buy { background: #26a69a; }
-        .btn-buy:active { background: #1d7d74; transform: scale(0.95); }
-        .btn-sell { background: #ef5350; }
-        .btn-sell:active { background: #c63936; transform: scale(0.95); }
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(148, 0, 211, 0.3);
+        }
 
-        #alertBox { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; font-weight: bold; color: white; display: none; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.6); font-size: 1.2em; animation: fadeIn 0.3s ease-out; border: 2px solid white; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: var(--neon-glow);
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.9)), 
+                        url('https://images.unsplash.com/photo-1579563216503-49294f923485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero h1 span {
+            color: var(--primary-color);
+            text-shadow: var(--neon-glow);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            color: #d1d1d1;
+            font-weight: 300;
+        }
+
+        .btn-glow {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: var(--neon-glow);
+            transition: all 0.3s ease;
+            border: 1px solid #fff;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(148, 0, 211, 0.8), 0 0 60px rgba(148, 0, 211, 0.5);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: rgba(20, 10, 30, 0.5);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .price-card {
+            background: linear-gradient(145deg, #111, #1a0b2e);
+            border: 1px solid rgba(148, 0, 211, 0.2);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px rgba(148, 0, 211, 0.3);
+        }
+
+        .price-card.popular::before {
+            content: 'EN ÇOK TERCİH EDİLEN';
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            background: var(--primary-color);
+            color: #fff;
+            font-size: 0.8rem;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .price-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .price span {
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            color: #ccc;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: #050505;
+            border-top: 1px solid rgba(148, 0, 211, 0.3);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+            text-shadow: var(--neon-glow);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .about-content { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="alertBox">🐋 PUMP GELDİ!</div>
+    <nav>
+        <div class="logo">SKY STUDIO</div>
+        <div class="nav-links">
+            <a href="#hakkimda">Hakkımızda</a>
+            <a href="#hizmetler">Paketler & Ücretler</a>
+            <a href="#iletisim">İletişim</a>
+        </div>
+    </nav>
 
-    <div class="header">
-        <div class="logo">💊 PumpSim Pro</div>
-        <div class="wallet">Bakiye: $<span id="cashDisplay">20.00</span></div>
-    </div>
+    <header class="hero">
+        <h1>En Özel Anlarınızı <span>Gökyüzünden</span> Ölümsüzleştirin</h1>
+        <p>Düğün, nişan ve özel davetlerinizde, sinematik kalitede profesyonel havadan video ve fotoğraf çekimi hizmetiyle hikayenizi zirveye taşıyın.</p>
+        <a href="#iletisim" class="btn-glow">Hizmete gel</a>
+    </header>
 
-    <div class="container" id="setupScreen">
-        <h2 style="margin-bottom: 5px;">🚀 Projeni Piyasaya Sür</h2>
-        <p style="color: #888; margin-bottom: 25px;">Sistem geçmiş veriyi üretecek ve balina botları aktif olacak.</p>
-        <input type="text" id="coinInput" value="PUMA" placeholder="COIN ADI GİR">
-        <br>
-        <button class="btn-launch" onclick="baslat()">Tahtayı Aç</button>
-    </div>
-
-    <div class="container" id="marketScreen">
-        <div class="market-header">
-            <div class="coin-info">
-                <div class="coin-name" id="nameDisplay">COIN</div>
-                <div class="inventory" id="tokenDisplay">Cüzdan: 0 Adet</div>
+    <section id="hakkimda">
+        <h2 class="section-title">Neden Biz?</h2>
+        <div class="section-subtitle">Profesyonel Ekipman & Sinematik Bakış Açısı</div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>DJI Mini 3 ile Kusursuz 4K Deneyimi</h3>
+                <p>Hikayenizi sıradan kamera açılarının ötesine taşıyoruz. En son teknoloji <strong>DJI Mini 3</strong> drone sistemimizle, düğünlerinizin, dış çekimlerinizin ve özel davetlerinizin en görkemli anlarını, sinematik 4K çözünürlükte, pürüzsüz ve sarsıntısız bir şekilde kaydediyoruz.</p>
+                <p>Yüksek manevra kabiliyeti ve sessiz uçuş dinamiği sayesinde, o en özel anınızda konuklarınızı rahatsız etmeden, aşkınızı en doğal haliyle gökyüzünden yakalıyoruz.</p>
             </div>
-            <div class="price-box">
-                <div class="price">$<span id="priceDisplay">0.001000</span></div>
+        </div>
+    </section>
+
+    <section id="hizmetler">
+        <h2 class="section-title">Çekim Paketleri</h2>
+        <div class="section-subtitle">Bütçenize Uygun, Kaliteden Ödün Vermeyen Seçenekler</div>
+
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Standart Davet</h3>
+                <div class="price">4.500 <span>₺</span></div>
+                <ul class="features-list">
+                    <li>2 Saatlik Drone Çekimi</li>
+                    <li>4K Ham Video Teslimi</li>
+                    <li>Havadan Grup Fotoğrafı</li>
+                    <li>Mekan Dış Çekimi</li>
+                </ul>
+            </div>
+
+            <div class="price-card popular">
+                <h3>Premium Düğün</h3>
+                <div class="price">8.500 <span>₺</span></div>
+                <ul class="features-list">
+                    <li>Yarım Gün (5 Saat) Çekim</li>
+                    <li>4K Sinematik Video Kurgusu</li>
+                    <li>Instagram Reels Özel Kurgu</li>
+                    <li>Limitsiz Havadan Fotoğraf</li>
+                    <li>Renk Düzenlemesi (Color Grading)</li>
+                </ul>
+            </div>
+
+            <div class="price-card">
+                <h3>VIP Hikaye</h3>
+                <div class="price">12.000 <span>₺</span></div>
+                <ul class="features-list">
+                    <li>Tam Gün (Hazırlıktan Bitişe) Çekim</li>
+                    <li>Profesyonel Klip Montajı (3-5 Dk)</li>
+                    <li>DJI Mini 3 ile Özel Aksiyon Sahneleri</li>
+                    <li>Flaş Bellek ile Teslim</li>
+                    <li>Revizyon Hakkı</li>
+                </ul>
             </div>
         </div>
-        
-        <div class="toolbar">
-            <button class="tf-btn active" id="btn-1" onclick="zamanDilimiDegistir(1)">1D</button>
-            <button class="tf-btn" id="btn-3" onclick="zamanDilimiDegistir(3)">3D</button>
-            <button class="tf-btn" id="btn-5" onclick="zamanDilimiDegistir(5)">5D</button>
-            <button class="tf-btn" id="btn-15" onclick="zamanDilimiDegistir(15)">15D</button>
+    </section>
+
+    <section id="iletisim" style="text-align: center;">
+        <h2 class="section-title">Rezervasyon Oluştur</h2>
+        <p style="margin-bottom: 30px; color: #ccc;">Tarihiniz dolmadan yerinizi ayırtın ve hayallerinizdeki çekimi planlayalım.</p>
+        <a href="mailto:iletisim@mail.com" class="btn-glow">Hizmete gel</a>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">WhatsApp</a>
         </div>
-        
-        <div id="chart"></div>
-
-        <div class="controls">
-            <button class="btn btn-buy" onclick="al()">
-                AL
-                <span>5$ Harca</span>
-            </button>
-            <button class="btn btn-sell" onclick="sat()">
-                TÜMÜNÜ SAT
-                <span>Parayı Çek</span>
-            </button>
-        </div>
-    </div>
-
-<script>
-    // DEĞİŞKENLER (BAŞLANGIÇ BAKİYESİ 20$ YAPILDI)
-    let bakiyeUSD = 20.00;
-    let bakiyeToken = 0;
-    let fiyat = 0.001000;
-    
-    let chart;
-    let anaVeriHavuzu = []; 
-    let seciliZamanDilimi = 1; 
-    let guncelZaman = new Date().getTime() - (5 * 60 * 60 * 1000); 
-
-    function bildirimGoster(mesaj, tip) {
-        let alertKutusu = document.getElementById("alertBox");
-        alertKutusu.innerText = mesaj;
-        alertKutusu.style.backgroundColor = tip === 'pump' ? '#26a69a' : '#ef5350';
-        alertKutusu.style.display = "block";
-        setTimeout(() => { alertKutusu.style.display = "none"; }, 3000);
-    }
-
-    function baslat() {
-        let isim = document.getElementById("coinInput").value.trim().toUpperCase();
-        if(isim === "") isim = "PUMA";
-        
-        document.getElementById("nameDisplay").innerText = "$" + isim;
-        document.getElementById("setupScreen").style.display = "none";
-        document.getElementById("marketScreen").style.display = "block";
-        
-        gecmisVeriUret(); 
-        grafikKur();
-        arayuzuGuncelle();
-        
-        setInterval(piyasaHareketiVeYeniMum, 2000); 
-    }
-
-    function gecmisVeriUret() {
-        let sahteFiyat = 0.0002; 
-        for(let i = 0; i < 300; i++) { 
-            guncelZaman += 60000; 
-            let acilis = sahteFiyat;
-            sahteFiyat = sahteFiyat * (1 + (Math.random() * 0.04 - 0.02)); 
-            if(i === 299) sahteFiyat = 0.001000; 
-
-            let yuksek = Math.max(acilis, sahteFiyat) * (1 + Math.random() * 0.005);
-            let dusuk = Math.min(acilis, sahteFiyat) * (1 - Math.random() * 0.005);
-            
-            anaVeriHavuzu.push({ x: guncelZaman, y: [acilis, yuksek, dusuk, sahteFiyat] });
-        }
-        fiyat = sahteFiyat;
-    }
-
-    function zamanDilimiDegistir(dakika) {
-        seciliZamanDilimi = dakika;
-        document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('active'));
-        document.getElementById('btn-' + dakika).classList.add('active');
-        grafikGuncelle(); 
-    }
-
-    function gruplanmisVeriGetir() {
-        if (seciliZamanDilimi === 1) return anaVeriHavuzu.slice(-100); 
-        
-        let gruplanmis = [];
-        let aktifGrup = null;
-        let msAralik = seciliZamanDilimi * 60 * 1000;
-
-        anaVeriHavuzu.forEach(mum => {
-            let yuvarlanmisZaman = Math.floor(mum.x / msAralik) * msAralik;
-            if (!aktifGrup || aktifGrup.x !== yuvarlanmisZaman) {
-                if (aktifGrup) gruplanmis.push(aktifGrup);
-                aktifGrup = { x: yuvarlanmisZaman, y: [...mum.y] }; 
-            } else {
-                aktifGrup.y[1] = Math.max(aktifGrup.y[1], mum.y[1]); 
-                aktifGrup.y[2] = Math.min(aktifGrup.y[2], mum.y[2]); 
-                aktifGrup.y[3] = mum.y[3]; 
-            }
-        });
-        if (aktifGrup) gruplanmis.push(aktifGrup);
-        return gruplanmis.slice(-80); 
-    }
-
-    function arayuzuGuncelle() {
-        document.getElementById("cashDisplay").innerText = bakiyeUSD.toFixed(2);
-        document.getElementById("priceDisplay").innerText = fiyat.toFixed(6);
-        document.getElementById("tokenDisplay").innerText = "Cüzdan: " + Math.floor(bakiyeToken).toLocaleString() + " Adet";
-        
-        let sonMum = anaVeriHavuzu[anaVeriHavuzu.length - 1];
-        if(sonMum && fiyat >= sonMum.y[0]) {
-            document.getElementById("priceDisplay").style.color = "#26a69a";
-        } else {
-            document.getElementById("priceDisplay").style.color = "#ef5350";
-        }
-    }
-
-    // AL BUTONU (Artık her tıklamada 5$ harcıyor)
-    function al() {
-        if(bakiyeUSD >= 5) {
-            let alinanMiktar = 5 / fiyat;
-            bakiyeUSD -= 5;
-            bakiyeToken += alinanMiktar;
-            
-            fiyat = fiyat * (1 + (Math.random() * 0.06 + 0.03));
-            sonMumuGuncelleVeCiz();
-        } else {
-            alert("Bakiyen Yetersiz! (En az 5$ lazım)");
-        }
-    }
-
-    // SAT BUTONU
-    function sat() {
-        if(bakiyeToken > 0) {
-            let eldeEdilen = bakiyeToken * fiyat;
-            bakiyeUSD += eldeEdilen;
-            bakiyeToken = 0;
-            
-            fiyat = fiyat * (1 - (Math.random() * 0.10 + 0.04));
-            if(fiyat < 0.000001) fiyat = 0.000001;
-            
-            sonMumuGuncelleVeCiz();
-        } else {
-            alert("Satacak Coin Yok!");
-        }
-    }
-
-    function sonMumuGuncelleVeCiz() {
-        let sonMum = anaVeriHavuzu[anaVeriHavuzu.length - 1];
-        sonMum.y[3] = fiyat; 
-        if(fiyat > sonMum.y[1]) sonMum.y[1] = fiyat; 
-        if(fiyat < sonMum.y[2]) sonMum.y[2] = fiyat; 
-        
-        arayuzuGuncelle();
-        grafikGuncelle();
-    }
-
-    function piyasaHareketiVeYeniMum() {
-        guncelZaman += 60000; 
-        
-        let zar = Math.random(); 
-        
-        if (zar < 0.04) {
-            fiyat = fiyat * (1 + (Math.random() * 0.15 + 0.10));
-            bildirimGoster("🐋 BALİNA GİRDİ: DEV PUMP!", "pump");
-        } else if (zar > 0.96) {
-            fiyat = fiyat * (1 - (Math.random() * 0.15 + 0.10));
-            if(fiyat < 0.000001) fiyat = 0.000001;
-            bildirimGoster("🚨 PANİK SATIŞI: DEV DUMP!", "dump");
-        } else {
-            fiyat = fiyat * (1 + (Math.random() * 0.02 - 0.01));
-        }
-        
-        anaVeriHavuzu.push({ x: guncelZaman, y: [fiyat, fiyat, fiyat, fiyat] });
-        if(anaVeriHavuzu.length > 1500) anaVeriHavuzu.shift();
-        
-        arayuzuGuncelle();
-        grafikGuncelle();
-    }
-
-    function grafikKur() {
-        var options = {
-            series: [{ data: gruplanmisVeriGetir() }],
-            chart: { type: 'candlestick', height: 420, background: '#0b0e14', animations: { enabled: false }, toolbar: { show: false } },
-            theme: { mode: 'dark' },
-            xaxis: { type: 'datetime', labels: { style: { colors: '#888' }, datetimeUTC: false, format: 'HH:mm' }, axisBorder: { show: false }, tooltip: { enabled: false } },
-            yaxis: { tooltip: { enabled: true }, labels: { formatter: function(val) { return val.toFixed(6); }, style: { colors: '#888' } } },
-            plotOptions: { candlestick: { colors: { upward: '#26a69a', downward: '#ef5350' }, wick: { useFillColor: true } } },
-            grid: { borderColor: '#2b313f', strokeDashArray: 3 }
-        };
-
-        chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-    }
-
-    function grafikGuncelle() {
-        if(chart) {
-            try { chart.updateSeries([{ data: gruplanmisVeriGetir() }]); } catch(e){}
-        }
-    }
-</script>
+        <p style="color: #666; font-size: 0.9rem;">&copy; 2026 Havadan Çekim Stüdyosu. Tüm hakları saklıdır.</p>
+    </footer>
 
 </body>
 </html>
