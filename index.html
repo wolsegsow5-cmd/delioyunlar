@@ -57,184 +57,25 @@
     </nav>
 
     <div id="landingPage" class="min-h-[90vh] flex flex-col bg-white fade-in pb-0">
-        
         <div class="flex-grow flex flex-col items-center justify-center text-center px-4 pt-24">
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-[#1E2225]">
-                Yarının dünyası<span class="paribu-green-text">.</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl">
-                Kriptoyu keşfedin.<br>İhtiyacınız olan her şey tek uygulamada.
-            </p>
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-[#1E2225]">Yarının dünyası<span class="paribu-green-text">.</span></h1>
+            <p class="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl">Kriptoyu keşfedin.<br>İhtiyacınız olan her şey tek uygulamada.</p>
             <div class="flex flex-wrap justify-center gap-4">
-                <button onclick="switchTab('dashboardPage')" class="paribu-green text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-green-600 transition shadow-lg">
-                    Kolay Al/Sat
-                </button>
-                <button onclick="switchTab('marketsPage')" class="bg-white border-2 border-gray-200 text-gray-700 font-bold py-4 px-8 rounded-lg text-lg hover:border-gray-300 transition shadow-sm">
-                    Piyasaları İncele
-                </button>
-                <a href="#" class="bg-gray-800 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-gray-900 transition shadow-lg flex items-center">
-                    <i class="fas fa-file-pdf mr-2 text-red-400"></i> Whitepaper
-                </a>
+                <button onclick="switchTab('dashboardPage')" class="paribu-green text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-green-600 transition shadow-lg">Kolay Al/Sat</button>
+                <button onclick="switchTab('marketsPage')" class="bg-white border-2 border-gray-200 text-gray-700 font-bold py-4 px-8 rounded-lg text-lg hover:border-gray-300 transition shadow-sm">Piyasaları İncele</button>
             </div>
         </div>
 
         <div class="mt-24 w-full bg-gray-50 py-16 border-t border-b border-gray-100">
             <div class="max-w-6xl mx-auto px-4 md:px-8 text-center">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6">Geleceğin Merkeziyetsiz Ekosistemine Kanat Açın</h2>
-                <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
-                    Merkeziyetsiz finansın (DeFi) kurallarını yeniden yazıyoruz. Solana ağının sunduğu benzersiz hız ve düşük işlem ücretlerini arkasına alan <strong>ICARUS</strong>, yatırımcısına şeffaf, güvenli ve topluluk odaklı bir büyüme modeli sunuyor.
-                </p>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                        <div class="text-4xl mb-4">🔒</div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">%100 Kilitli Likidite</h3>
-                        <p class="text-gray-500 text-sm">Yatırımcı güvenliği her şeyden önce gelir. Likidite havuzumuz tamamen kilitlenmiş olup, "rug pull" riski ortadan kaldırılmıştır.</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                        <div class="text-4xl mb-4">🔥</div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">Sürekli Yakım Mekanizması</h3>
-                        <p class="text-gray-500 text-sm">Her işlemde gerçekleşen otomatik token yakımı (burn) sayesinde deflasyonist bir yapı sunar. Arz azalırken değer korunur.</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                        <div class="text-4xl mb-4">🤝</div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">Topluluk Odaklı</h3>
-                        <p class="text-gray-500 text-sm">ICARUS'un rotasını kurucular değil, topluluk belirler. Tüm büyük kararlar şeffaf oylama ile alınır.</p>
-                    </div>
+                <div class="grid md:grid-cols-3 gap-8 mt-12">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100"><div class="text-4xl mb-4">🔒</div><h3 class="text-xl font-bold mb-3">Kilitli Likidite</h3><p class="text-gray-500 text-sm">Yatırımcı güvenliği her şeyden önce gelir. Havuzumuz tamamen kilitlidir.</p></div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100"><div class="text-4xl mb-4">🔥</div><h3 class="text-xl font-bold mb-3">Sürekli Yakım</h3><p class="text-gray-500 text-sm">Her işlemde otomatik yakım (burn) sayesinde deflasyonist yapı sunar.</p></div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100"><div class="text-4xl mb-4">🤝</div><h3 class="text-xl font-bold mb-3">Topluluk Odaklı</h3><p class="text-gray-500 text-sm">Rotayı kurucular değil, şeffaf oylama ile topluluk belirler.</p></div>
                 </div>
             </div>
         </div>
-
-        <div class="max-w-6xl mx-auto px-4 md:px-8 py-20 grid lg:grid-cols-2 gap-16">
-            <div>
-                <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-b-4 border-[#8DC63F] inline-block pb-2">Tokenomics</h2>
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                    <div class="mb-4 flex justify-between items-center border-b border-gray-100 pb-2">
-                        <span class="font-bold text-gray-600">Toplam Arz</span>
-                        <span class="font-extrabold text-gray-900">1,000,000,000 ICR</span>
-                    </div>
-                    <ul class="space-y-4 mt-6">
-                        <li class="flex items-center">
-                            <div class="w-4 h-4 rounded-full bg-green-500 mr-3"></div>
-                            <span class="flex-grow text-gray-700 font-medium">Likidite Havuzu</span>
-                            <span class="font-bold text-gray-900">%40</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="w-4 h-4 rounded-full bg-red-500 mr-3"></div>
-                            <span class="flex-grow text-gray-700 font-medium">Otomatik Yakım (Burn)</span>
-                            <span class="font-bold text-gray-900">%30</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="w-4 h-4 rounded-full bg-blue-500 mr-3"></div>
-                            <span class="flex-grow text-gray-700 font-medium">Topluluk / Airdrop</span>
-                            <span class="font-bold text-gray-900">%20</span>
-                        </li>
-                        <li class="flex items-center">
-                            <div class="w-4 h-4 rounded-full bg-yellow-400 mr-3"></div>
-                            <span class="flex-grow text-gray-700 font-medium">Takım & Pazarlama</span>
-                            <span class="font-bold text-gray-900">%10</span>
-                        </li>
-                    </ul>
-                    <div class="w-full h-4 flex rounded-full overflow-hidden mt-6">
-                        <div class="bg-green-500 w-[40%]"></div>
-                        <div class="bg-red-500 w-[30%]"></div>
-                        <div class="bg-blue-500 w-[20%]"></div>
-                        <div class="bg-yellow-400 w-[10%]"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-b-4 border-[#8DC63F] inline-block pb-2">Yol Haritası (2026)</h2>
-                <div class="relative border-l-2 border-green-200 ml-3 space-y-8">
-                    <div class="relative pl-6">
-                        <div class="absolute w-4 h-4 bg-[#8DC63F] rounded-full -left-[9px] top-1 border-2 border-white"></div>
-                        <h4 class="font-bold text-gray-900 text-lg">1. Çeyrek: Temellerin Atılması</h4>
-                        <p class="text-sm text-gray-500 mt-1">Akıllı kontrat geliştirilmesi, web sitesi lansmanı ve topluluk inşası. Kilitli likidite entegrasyonu.</p>
-                    </div>
-                    <div class="relative pl-6">
-                        <div class="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-1 border-2 border-white"></div>
-                        <h4 class="font-bold text-gray-900 text-lg">2. Çeyrek: Büyüme ve DEX Lansmanı</h4>
-                        <p class="text-sm text-gray-500 mt-1">Raydium/Jupiter listelemeleri, CoinGecko & CoinMarketCap başvuruları, 10.000+ cüzdan sahibine ulaşma hedefi.</p>
-                    </div>
-                    <div class="relative pl-6">
-                        <div class="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-1 border-2 border-white"></div>
-                        <h4 class="font-bold text-gray-900 text-lg">3. Çeyrek: Ekosistem Genişlemesi</h4>
-                        <p class="text-sm text-gray-500 mt-1">Staking platformunun açılışı, ilk Merkezi Borsa (CEX) listelemeleri ve mobil uygulama Beta sürümü.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-4 md:px-8 py-10">
-            <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-10">Sıkça Sorulan Sorular</h2>
-            <div class="space-y-4">
-                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 p-4 cursor-pointer">
-                    <summary class="font-bold text-gray-800 flex justify-between items-center outline-none">
-                        ICARUS Token'ı nasıl satın alabilirim?
-                        <span class="text-green-500 group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="text-gray-500 text-sm mt-3 pt-3 border-t border-gray-100">Solana destekli bir cüzdan (örneğin Phantom) bağlayarak yukarıdaki "Kolay Al/Sat" menüsünden veya doğrudan sitemizde yer alan kontrat adresine SOL göndererek işlem yapabilirsiniz.</p>
-                </details>
-                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 p-4 cursor-pointer">
-                    <summary class="font-bold text-gray-800 flex justify-between items-center outline-none">
-                        İşlemlerde (Slippage) kayma toleransı kaç olmalı?
-                        <span class="text-green-500 group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="text-gray-500 text-sm mt-3 pt-3 border-t border-gray-100">Otomatik yakım mekanizması sebebiyle alım satım işlemlerinizde Slippage (Kayma Toleransı) oranını %3 ile %5 arasında ayarlamanızı öneririz.</p>
-                </details>
-                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 p-4 cursor-pointer">
-                    <summary class="font-bold text-gray-800 flex justify-between items-center outline-none">
-                        Akıllı kontrat adresi (Contract Address) nedir?
-                        <span class="text-green-500 group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="text-gray-500 text-sm mt-3 pt-3 border-t border-gray-100 font-mono bg-gray-50 p-2 rounded">1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm</p>
-                </details>
-            </div>
-        </div>
-
-        <div class="my-10 w-full max-w-4xl mx-auto bg-gray-50 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between border border-gray-100 shadow-sm">
-            <div class="text-left mb-6 md:mb-0">
-                <h3 class="text-3xl font-extrabold text-gray-800 mb-2">Icarus hep yanınızda.</h3>
-                <p class="text-gray-500 font-medium">İstediğiniz an, istediğiniz yerde yatırım yapın.<br>Çok yakında App Store ve Google Play'de.</p>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-4">
-                <button class="bg-[#1E2225] text-white px-6 py-3 rounded-xl flex items-center hover:bg-black transition cursor-not-allowed opacity-90">
-                    <i class="fab fa-apple text-3xl mr-3"></i>
-                    <div class="text-left"><p class="text-[10px] text-gray-400 uppercase tracking-widest">Çok Yakında</p><p class="font-bold text-sm">App Store</p></div>
-                </button>
-                <button class="bg-[#1E2225] text-white px-6 py-3 rounded-xl flex items-center hover:bg-black transition cursor-not-allowed opacity-90">
-                    <i class="fab fa-google-play text-2xl mr-3 text-green-400"></i>
-                    <div class="text-left"><p class="text-[10px] text-gray-400 uppercase tracking-widest">Çok Yakında</p><p class="font-bold text-sm">Google Play</p></div>
-                </button>
-            </div>
-        </div>
-
-        <div class="max-w-6xl mx-auto px-4 md:px-8 mb-16">
-            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
-                <h4 class="text-red-700 font-extrabold mb-2 flex items-center"><i class="fas fa-exclamation-triangle mr-2"></i> YASAL UYARI VE RİSK BİLDİRİMİ (DYOR)</h4>
-                <p class="text-red-600/80 text-sm leading-relaxed text-justify">
-                    Bu web sitesinde yer alan hiçbir bilgi, materyal, grafik veya yönlendirme kesinlikle <strong>YATIRIM TAVSİYESİ DEĞİLDİR.</strong> Kripto para piyasaları son derece volatiliteli ve yüksek risk içeren piyasalardır. Yapacağınız tüm işlemler ve yatırımlar tamamen kendi sorumluluğunuzdadır. Icarus Protocol, oluşabilecek olası finansal kayıplardan sorumlu tutulamaz. Lütfen herhangi bir yatırım yapmadan önce kendi araştırmanızı (DYOR) yapın ve yalnızca kaybetmeyi göze alabileceğiniz miktarlarla işlem gerçekleştirin.
-                </p>
-            </div>
-        </div>
-
-        <footer class="bg-[#1E2225] text-gray-400 py-10 mt-auto border-t border-gray-800">
-            <div class="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0 text-center md:text-left">
-                    <div class="text-2xl font-extrabold tracking-tighter text-[#8DC63F] mb-2">ICARUS PROTOCOL</div>
-                    <p class="text-xs">Yeni Nesil Merkeziyetsiz Finans Ekosistemi.</p>
-                </div>
-                <div class="flex space-x-6 text-xl">
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-discord"></i></a>
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-            <div class="max-w-6xl mx-auto px-4 md:px-8 mt-8 text-center text-xs text-gray-600 border-t border-gray-800 pt-6">
-                &copy; 2026 Icarus Protocol. Tüm Hakları Saklıdır.
-            </div>
-        </footer>
     </div>
 
     <div id="marketsPage" class="hidden min-h-[90vh] flex-col container mx-auto px-4 py-6">
@@ -252,93 +93,6 @@
             </div>
             <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-2 flex flex-col h-[600px]">
                 <div id="dynamic_tv_chart" class="h-full w-full"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="dashboardPage" class="hidden min-h-[90vh] flex-col container mx-auto px-4 py-6">
-        <div class="grid lg:grid-cols-3 gap-6 h-full">
-            
-            <div class="lg:col-span-2 flex flex-col space-y-6">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col" style="height: 450px;">
-                    <h2 class="text-lg font-bold mb-3 flex items-center text-gray-800">SOL/USDT Canlı Piyasa</h2>
-                    <div class="flex-grow w-full h-full rounded-lg overflow-hidden border border-gray-100">
-                        <div class="tradingview-widget-container h-full w-full">
-                          <div id="tradingview_sol" class="h-full w-full"></div>
-                          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                          <script type="text/javascript">
-                          new TradingView.widget({ "autosize": true, "symbol": "BINANCE:SOLUSDT", "interval": "15", "timezone": "Europe/Istanbul", "theme": "light", "style": "1", "locale": "tr", "enable_publishing": false, "backgroundColor": "#ffffff", "hide_top_toolbar": false, "hide_legend": false, "container_id": "tradingview_sol" });
-                          </script>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gradient-to-r from-[#8DC63F] to-[#6da12d] rounded-xl shadow-sm p-6 text-white flex flex-col md:flex-row items-center justify-between shadow-lg">
-                    <div class="mb-4 md:mb-0 text-left w-full md:w-auto">
-                        <h3 class="text-xl font-extrabold mb-1"><i class="fas fa-users mr-2 text-white/80"></i>Arkadaşını Davet Et, Kazan!</h3>
-                        <p class="text-sm opacity-90 font-medium">Referans linkinizle kayıt olan her kullanıcının alımlarından <strong class="text-white bg-black/20 px-2 py-0.5 rounded">%5 komisyon</strong> alın.</p>
-                    </div>
-                    <div class="flex items-center bg-black/20 rounded-lg p-1 w-full md:w-auto border border-white/20">
-                        <input type="text" id="refLink" value="https://icarus.exchange/ref/7aX9b2" readonly class="bg-transparent text-white font-mono text-sm px-4 py-2 outline-none w-full md:w-48 selection:bg-white/30">
-                        <button onclick="copyRefLink()" class="bg-white text-[#6da12d] font-bold px-4 py-2 rounded-md hover:bg-gray-100 transition text-sm shadow-sm whitespace-nowrap">
-                            Kopyala
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-fit sticky top-24">
-                
-                <div id="userBalanceBox" class="hidden bg-green-50 border border-green-200 text-green-800 px-4 py-4 rounded-xl mb-6 text-center shadow-inner">
-                    <p class="text-xs font-bold uppercase mb-1 text-green-600">Cüzdandaki ICARUS Bakiyeniz</p>
-                    <p class="text-3xl font-extrabold text-green-700"><span id="userIcrBalance">0</span> <span class="text-lg">ICR</span></p>
-                </div>
-
-                <h2 class="text-2xl font-extrabold mb-6 border-b border-gray-100 pb-3 text-gray-800">Kolay Alış</h2>
-                
-                <div class="bg-gray-50 p-4 rounded-xl mb-2 border border-gray-200 focus-within:border-green-400 focus-within:ring-1">
-                    <label class="block text-xs text-gray-500 font-bold mb-1">ÖDENECEK</label>
-                    <div class="flex items-center">
-                        <input type="number" id="solInput" value="0.1" step="0.01" min="0.01" class="w-full bg-transparent text-3xl font-bold text-gray-800 focus:outline-none">
-                        <span class="font-bold text-gray-400 text-lg">SOL</span>
-                    </div>
-                </div>
-
-                <div class="flex justify-center -my-3 relative z-10">
-                    <div class="bg-white border border-gray-200 p-2 rounded-full shadow-sm"><i class="fas fa-exchange-alt text-green-500 transform rotate-90"></i></div>
-                </div>
-
-                <div class="bg-green-50 p-4 rounded-xl mb-6 border border-green-100">
-                    <label class="block text-xs text-green-600 font-bold mb-1">ALINACAK (Tahmini)</label>
-                    <div class="flex items-center">
-                        <input type="text" id="icrOutput" value="10,000" readonly class="w-full bg-transparent text-3xl font-bold text-green-600 focus:outline-none">
-                        <span class="font-bold text-green-600/50 text-lg">ICR</span>
-                    </div>
-                </div>
-
-                <button id="buyIcarusBtn" disabled class="w-full bg-gray-300 text-gray-500 font-bold py-4 rounded-xl text-lg transition shadow-sm cursor-not-allowed mb-3">
-                    ÖNCE CÜZDANI BAĞLAYIN
-                </button>
-                <div id="txStatus" class="text-center text-sm font-bold min-h-8 flex flex-col items-center justify-center mb-2"></div>
-
-                <div class="relative flex py-4 items-center">
-                    <div class="flex-grow border-t border-gray-200"></div>
-                    <span class="flex-shrink-0 mx-4 text-gray-400 text-xs font-bold uppercase">VEYA</span>
-                    <div class="flex-grow border-t border-gray-200"></div>
-                </div>
-
-                <button onclick="toggleManualTransfer()" class="w-full bg-white border-2 border-gray-200 text-gray-700 hover:border-green-500 hover:text-green-600 font-bold py-3 rounded-xl transition flex items-center justify-center">
-                    <i class="fas fa-hand-holding-usd mr-2"></i> Manuel Satın Al
-                </button>
-
-                <div id="manualTransferBox" class="hidden mt-3 bg-gray-50 border border-gray-200 rounded-xl p-4 transition-all">
-                    <p class="text-xs text-gray-500 font-semibold mb-2">Cüzdanınıza ICARUS tanımlanması için aşağıdaki adrese doğrudan SOL gönderebilirsiniz:</p>
-                    <div class="flex items-center bg-white border border-gray-300 rounded overflow-hidden">
-                        <input type="text" id="manualWalletInput" value="1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm" readonly class="w-full bg-transparent text-xs font-mono text-gray-700 p-3 focus:outline-none">
-                        <button onclick="copyWalletAddress()" class="bg-gray-200 hover:bg-gray-300 px-4 py-3 text-gray-700 transition" title="Kopyala"><i class="fas fa-copy"></i></button>
-                    </div>
-                    <p id="copyStatus" class="text-green-500 text-xs font-bold mt-2 hidden">Adres kopyalandı!</p>
-                </div>
             </div>
         </div>
     </div>
@@ -366,14 +120,61 @@
                 </div>
             </div>
             <div class="px-6 py-4 bg-green-50 border-t border-green-100 text-xs text-green-700 font-medium">
-                <i class="fas fa-info-circle mr-1"></i> Başarıyla satın aldığınız ICARUS tokenları yukarıda listelenmektedir. Akıllı kontrat dağıtımı başladığında bu tokenlar cüzdanınıza otomatik yansıyacaktır.
+                <i class="fas fa-info-circle mr-1"></i> Başarıyla satın aldığınız sanal ICARUS tokenları yukarıda listelenmektedir.
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboardPage" class="hidden min-h-[90vh] flex-col container mx-auto px-4 py-6">
+        <div class="grid lg:grid-cols-3 gap-6 h-full">
+            
+            <div class="lg:col-span-2 flex flex-col space-y-6">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col" style="height: 450px;">
+                    <h2 class="text-lg font-bold mb-3 flex items-center text-gray-800">SOL/USDT Canlı Piyasa</h2>
+                    <div class="flex-grow w-full h-full rounded-lg overflow-hidden border border-gray-100">
+                        <div class="tradingview-widget-container h-full w-full">
+                          <div id="tradingview_sol" class="h-full w-full"></div>
+                          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                          <script type="text/javascript">
+                          new TradingView.widget({ "autosize": true, "symbol": "BINANCE:SOLUSDT", "interval": "15", "timezone": "Europe/Istanbul", "theme": "light", "style": "1", "locale": "tr", "enable_publishing": false, "backgroundColor": "#ffffff", "hide_top_toolbar": false, "hide_legend": false, "container_id": "tradingview_sol" });
+                          </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-fit sticky top-24">
+                <h2 class="text-2xl font-extrabold mb-6 border-b border-gray-100 pb-3 text-gray-800">Kolay Alış</h2>
+                
+                <div class="bg-gray-50 p-4 rounded-xl mb-2 border border-gray-200 focus-within:border-green-400 focus-within:ring-1">
+                    <label class="block text-xs text-gray-500 font-bold mb-1">ÖDENECEK</label>
+                    <div class="flex items-center">
+                        <input type="number" id="solInput" value="12" step="0.01" min="0.01" class="w-full bg-transparent text-3xl font-bold text-gray-800 focus:outline-none">
+                        <span class="font-bold text-gray-400 text-lg">SOL</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-center -my-3 relative z-10">
+                    <div class="bg-white border border-gray-200 p-2 rounded-full shadow-sm"><i class="fas fa-exchange-alt text-green-500 transform rotate-90"></i></div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-xl mb-6 border border-green-100">
+                    <label class="block text-xs text-green-600 font-bold mb-1">ALINACAK (Tahmini)</label>
+                    <div class="flex items-center">
+                        <input type="text" id="icrOutput" value="1,200,000" readonly class="w-full bg-transparent text-3xl font-bold text-green-600 focus:outline-none">
+                        <span class="font-bold text-green-600/50 text-lg">ICR</span>
+                    </div>
+                </div>
+
+                <button id="buyIcarusBtn" disabled class="w-full bg-gray-300 text-gray-500 font-bold py-4 rounded-xl text-lg transition shadow-sm cursor-not-allowed mb-3">
+                    ÖNCE CÜZDANI BAĞLAYIN
+                </button>
+                <div id="txStatus" class="text-center text-sm font-bold min-h-8 flex flex-col items-center justify-center mb-2"></div>
             </div>
         </div>
     </div>
 
     <script>
-        const KREATOR_WALLET = "1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm"; 
-
         // Sekme Değiştirme
         function switchTab(tabId) {
             document.getElementById('landingPage').style.display = 'none';
@@ -392,41 +193,23 @@
             window.scrollTo(0, 0); 
         }
 
-        // Bakiye ve Cüzdan Arayüzü Güncelleme
+        // CÜZDAN ARAYÜZÜ GÜNCELLEME
         function updateWalletUI() {
             let balance = parseInt(localStorage.getItem('icr_balance')) || 0;
-            document.getElementById('userIcrBalance').innerText = balance.toLocaleString('en-US'); // Dashboard için
-            document.getElementById('walletIcrBalance').innerText = balance.toLocaleString('en-US'); // Cüzdan sekmesi için
-            document.getElementById('usdEquivalent').innerText = (balance * 0.001).toFixed(2); // Sanal dolar karşılığı
+            document.getElementById('walletIcrBalance').innerText = balance.toLocaleString('en-US');
+            document.getElementById('usdEquivalent').innerText = (balance * 0.001).toFixed(2);
         }
 
-        // Kopyalama İşlemleri
-        function toggleManualTransfer() { document.getElementById('manualTransferBox').classList.toggle('hidden'); }
-        function copyWalletAddress() {
-            const copyText = document.getElementById("manualWalletInput");
-            copyText.select(); navigator.clipboard.writeText(copyText.value);
-            const status = document.getElementById("copyStatus");
-            status.style.display = "block"; setTimeout(() => { status.style.display = "none"; }, 2000);
-        }
-        function copyRefLink() {
-            const copyText = document.getElementById("refLink");
-            copyText.select(); navigator.clipboard.writeText(copyText.value);
-            alert("✅ Referans linkiniz başarıyla kopyalandı!");
-        }
-
-        // Canlı Piyasa ve Grafik (Binance API) 
+        // Canlı Piyasa ve Grafik (Binance API)
         const symbolNames = { "BTCUSDT":"Bitcoin", "ETHUSDT":"Ethereum", "SOLUSDT":"Solana", "XRPUSDT":"Ripple", "DOGEUSDT":"Dogecoin", "AVAXUSDT":"Avalanche" };
         async function fetchLivePrices() {
             try {
                 const symbols = encodeURIComponent('["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","AVAXUSDT"]');
                 const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=${symbols}`;
-                
                 const response = await fetch(url); 
                 if (!response.ok) throw new Error("API yanıt vermedi");
-                
                 const data = await response.json();
-                const tbody = document.getElementById('marketTableBody'); 
-                tbody.innerHTML = '';
+                const tbody = document.getElementById('marketTableBody'); tbody.innerHTML = '';
                 
                 data.forEach(coin => {
                     const price = parseFloat(coin.lastPrice), change = parseFloat(coin.priceChangePercent), isPos = change >= 0;
@@ -443,10 +226,7 @@
                     `;
                     tbody.appendChild(tr);
                 });
-            } catch (err) { 
-                console.error("Veri çekme hatası:", err); 
-                document.getElementById('marketTableBody').innerHTML = '<tr><td colspan="3" class="text-center py-10 text-red-500">Bağlantı hatası: Fiyatlar yüklenemedi.</td></tr>';
-            }
+            } catch (err) { document.getElementById('marketTableBody').innerHTML = '<tr><td colspan="3" class="text-center py-10 text-red-500">Bağlantı hatası: Fiyatlar yüklenemedi.</td></tr>'; }
         }
         setInterval(() => { if(document.getElementById('marketsPage').style.display !== 'none') fetchLivePrices(); }, 5000);
 
@@ -463,7 +243,7 @@
             icrOutput.value = Math.floor(val * 100000).toLocaleString('en-US');
         });
 
-        // WEB3 CÜZDAN BAĞLANTISI (Sadece Görsel/Log in)
+        // WEB3 CÜZDAN BAĞLANTISI (Sadece adres okumak için)
         let userPublicKey = null;
         const connectBtn = document.getElementById('connectWalletBtn'), buyBtn = document.getElementById('buyIcarusBtn');
         const walletDisplay = document.getElementById('walletAddressDisplay'), txStatus = document.getElementById('txStatus');
@@ -481,16 +261,11 @@
                     buyBtn.disabled = false; 
                     buyBtn.className = "w-full paribu-green hover:bg-green-600 text-white font-extrabold py-4 rounded-xl text-lg transition shadow-lg"; 
                     buyBtn.innerText = "ICARUS SATIN AL";
-
-                    // Bağlanınca Bakiye Kutusunu Göster ve Değerleri Yükle
-                    document.getElementById('userBalanceBox').classList.remove('hidden');
-                    updateWalletUI();
-
                 } catch (err) { alert("Cüzdan bağlantısı reddedildi."); }
             } else { alert("Lütfen tarayıcınıza Phantom Cüzdan eklentisini kurun!"); }
         });
 
-        // SANAL (SİMÜLASYON) SATIN ALMA İŞLEMİ
+        // TAMAMEN SİMÜLASYON OLAN SATIN ALMA İŞLEMİ (Hiçbir transfer kodu yok)
         buyBtn.addEventListener('click', async () => {
             if (!userPublicKey) return;
             const amount = parseFloat(solInput.value);
@@ -500,33 +275,26 @@
                 return; 
             }
 
-            try {
-                // Yükleniyor Animasyonu
-                buyBtn.innerText = "İŞLENİYOR..."; 
-                buyBtn.classList.add('opacity-75', 'cursor-wait');
-                txStatus.innerHTML = "<span class='text-blue-500 font-bold'><i class='fas fa-spinner fa-spin mr-2'></i>Ağa İşleniyor, Lütfen Bekleyin...</span>";
+            // 1. Ekranı İşleniyor Moduna Al
+            buyBtn.innerText = "İŞLENİYOR..."; 
+            buyBtn.classList.add('opacity-75', 'cursor-wait');
+            txStatus.innerHTML = "<span class='text-blue-500 font-bold'><i class='fas fa-spinner fa-spin mr-2'></i>Ağa İşleniyor, Lütfen Bekleyin...</span>";
 
-                // Gerçek işlem yapılmıyor, sadece 2 saniye bekletiliyor (Simülasyon)
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                
-                // Başarılı Mesajı
-                txStatus.innerHTML = "<span class='text-green-600 font-bold'>✅ İŞLEM BAŞARILI! <br> Bakiye cüzdanınıza eklendi.</span>";
-                buyBtn.innerText = "YENİDEN SATIN AL"; 
-                buyBtn.classList.remove('opacity-75', 'cursor-wait');
+            // 2. 2 Saniye Bekle (Sahte Yükleme Efekti)
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // 3. İşlem Başarılı Mesajı
+            txStatus.innerHTML = "<span class='text-green-600 font-bold'>✅ İŞLEM BAŞARILI! <br> Varlıklarınız Cüzdan sekmesine eklendi.</span>";
+            buyBtn.innerText = "YENİDEN SATIN AL"; 
+            buyBtn.classList.remove('opacity-75', 'cursor-wait');
 
-                // Bakiyeye Ekle ve Tarayıcıya Kaydet
-                const boughtIcr = parseInt(icrOutput.value.replace(/,/g, ''));
-                let currentBalance = parseInt(localStorage.getItem('icr_balance')) || 0;
-                localStorage.setItem('icr_balance', currentBalance + boughtIcr);
-                
-                // Ekranda Hemen Güncelle
-                updateWalletUI();
-
-            } catch (err) {
-                buyBtn.innerText = "ICARUS SATIN AL"; 
-                buyBtn.classList.remove('opacity-75', 'cursor-wait');
-                txStatus.innerHTML = `<span class='text-red-600 font-bold'>❌ İŞLEM BAŞARISIZ</span>`;
-            }
+            // 4. Bakiyeye Ekle ve Kaydet
+            const boughtIcr = parseInt(icrOutput.value.replace(/,/g, ''));
+            let currentBalance = parseInt(localStorage.getItem('icr_balance')) || 0;
+            localStorage.setItem('icr_balance', currentBalance + boughtIcr);
+            
+            // Arka planda cüzdan arayüzünü güncelle
+            updateWalletUI();
         });
     </script>
 </body>
