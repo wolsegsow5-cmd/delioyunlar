@@ -11,18 +11,10 @@
         body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
         .paribu-green { background-color: #8DC63F; }
         .paribu-green-text { color: #8DC63F; }
-        .paribu-dark { background-color: #1E2225; }
-        
-        /* Animasyonlar */
         .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .fomo-row { animation: slideDown 0.5s ease-out forwards; background-color: rgba(141, 198, 63, 0.1); }
+        .fomo-row { animation: slideDown 0.5s ease-out forwards; background-color: rgba(141, 198, 63, 0.05); }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
     </style>
 </head>
 <body class="text-gray-900 antialiased overflow-x-hidden">
@@ -36,17 +28,16 @@
                 <a href="#" class="hover:text-black transition">Kolay Al/Sat</a>
             </div>
             <div>
-                <button onclick="enterExchange()" class="font-semibold text-sm mr-4 md:mr-6 hover:text-green-600 transition">Giriş yap</button>
-                <button onclick="enterExchange()" class="paribu-green text-white font-bold py-2 px-6 rounded hover:bg-green-600 transition shadow-md">Hesap oluştur</button>
+                <button onclick="enterExchange()" class="font-semibold text-sm mr-4 hover:text-green-600 transition">Giriş yap</button>
+                <button onclick="enterExchange()" class="paribu-green text-white font-bold py-2 px-6 rounded hover:bg-green-600 transition">Hesap oluştur</button>
             </div>
         </nav>
-
         <div class="flex-grow flex flex-col items-center justify-center text-center px-4">
             <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-[#1E2225]">
-                Geleceğin finansı<span class="paribu-green-text">.</span>
+                Yarının dünyası<span class="paribu-green-text">.</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl">
-                Icarus ekosistemini keşfedin.<br>İhtiyacınız olan her şey tek bir platformda, güvenle.
+                Kriptoyu keşfedin.<br>İhtiyacınız olan her şey tek uygulamada.
             </p>
             <button onclick="enterExchange()" class="paribu-green text-white font-bold py-4 px-10 rounded-lg text-lg hover:bg-green-600 transition shadow-lg">
                 Hemen Başla
@@ -55,15 +46,13 @@
     </div>
 
     <div id="dashboardPage" class="hidden min-h-screen flex flex-col">
-        
         <nav class="bg-white flex justify-between items-center px-6 py-4 border-b border-gray-200 shadow-sm z-10 relative">
             <div class="text-2xl font-extrabold tracking-tighter paribu-green-text cursor-pointer" onclick="exitExchange()">ICARUS</div>
             <div class="flex items-center space-x-4">
-                <button id="connectWalletBtn" class="bg-purple-100 text-purple-700 hover:bg-purple-200 font-bold py-2 px-4 rounded-full text-sm transition flex items-center">
-                    <img src="https://cryptologos.cc/logos/solana-sol-logo.svg?v=024" class="w-4 h-4 mr-2" alt="SOL">
-                    Cüzdanı Bağla (Phantom)
+                <button id="connectWalletBtn" class="bg-gray-100 text-gray-700 hover:bg-gray-200 font-bold py-2 px-4 rounded border border-gray-300 text-sm transition flex items-center">
+                    Cüzdanı Bağla
                 </button>
-                <span id="walletAddressDisplay" class="hidden text-sm font-mono font-bold bg-gray-100 px-4 py-2 rounded-full text-gray-700 border border-gray-200"></span>
+                <span id="walletAddressDisplay" class="hidden text-sm font-mono font-bold bg-green-50 px-4 py-2 rounded text-green-700 border border-green-200"></span>
             </div>
         </nav>
 
@@ -71,11 +60,8 @@
             <div class="grid lg:grid-cols-3 gap-6 h-full">
                 
                 <div class="lg:col-span-2 flex flex-col space-y-6">
-                    
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col" style="height: 450px;">
-                        <h2 class="text-lg font-bold mb-3 flex items-center text-gray-800">
-                            SOL/USDT Canlı Piyasa
-                        </h2>
+                        <h2 class="text-lg font-bold mb-3 flex items-center text-gray-800">SOL/USDT Canlı Piyasa</h2>
                         <div class="flex-grow w-full h-full rounded-lg overflow-hidden border border-gray-100">
                             <div class="tradingview-widget-container h-full w-full">
                               <div id="tradingview_sol" class="h-full w-full"></div>
@@ -91,10 +77,8 @@
                                 "locale": "tr",
                                 "enable_publishing": false,
                                 "backgroundColor": "#ffffff",
-                                "gridColor": "rgba(42, 46, 57, 0.06)",
                                 "hide_top_toolbar": false,
                                 "hide_legend": false,
-                                "save_image": false,
                                 "container_id": "tradingview_sol"
                               });
                               </script>
@@ -110,27 +94,21 @@
                         <div class="overflow-hidden flex-grow relative">
                             <table class="w-full text-left text-sm text-gray-600">
                                 <thead class="text-xs text-gray-400 uppercase bg-gray-50 border-b border-gray-100">
-                                    <tr>
-                                        <th class="px-4 py-2 font-semibold">Zaman</th>
-                                        <th class="px-4 py-2 font-semibold">Cüzdan</th>
-                                        <th class="px-4 py-2 font-semibold text-right">Miktar (SOL)</th>
-                                    </tr>
+                                    <tr><th class="px-4 py-2">Zaman</th><th class="px-4 py-2">Cüzdan</th><th class="px-4 py-2 text-right">Miktar (SOL)</th></tr>
                                 </thead>
-                                <tbody id="fomoTableBody" class="divide-y divide-gray-100">
-                                    </tbody>
+                                <tbody id="fomoTableBody" class="divide-y divide-gray-100"></tbody>
                             </table>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-fit sticky top-6">
                     <h2 class="text-2xl font-extrabold mb-6 border-b border-gray-100 pb-3 text-gray-800">Kolay Alış</h2>
                     
-                    <div class="bg-gray-50 p-4 rounded-xl mb-2 border border-gray-200 transition-all focus-within:border-green-400 focus-within:ring-1 focus-within:ring-green-400">
+                    <div class="bg-gray-50 p-4 rounded-xl mb-2 border border-gray-200 transition-all focus-within:border-green-400 focus-within:ring-1">
                         <label class="block text-xs text-gray-500 font-bold mb-1">ÖDENECEK</label>
                         <div class="flex items-center">
-                            <input type="number" id="solInput" value="1.0" step="0.1" min="0.1" class="w-full bg-transparent text-3xl font-bold text-gray-800 focus:outline-none" placeholder="0.0">
+                            <input type="number" id="solInput" value="1.0" step="0.1" min="0.1" class="w-full bg-transparent text-3xl font-bold text-gray-800 focus:outline-none">
                             <span class="font-bold text-gray-400 text-lg">SOL</span>
                         </div>
                     </div>
@@ -147,95 +125,56 @@
                             <input type="text" id="icrOutput" value="100,000" readonly class="w-full bg-transparent text-3xl font-bold text-green-600 focus:outline-none">
                             <span class="font-bold text-green-600/50 text-lg">ICR</span>
                         </div>
-                        <p class="text-xs text-green-600/70 mt-2 font-medium">1 SOL = 100,000 ICR</p>
                     </div>
 
                     <button id="buyIcarusBtn" disabled class="w-full bg-gray-300 text-gray-500 font-bold py-4 rounded-xl text-lg transition shadow-sm cursor-not-allowed">
                         ÖNCE CÜZDANI BAĞLAYIN
                     </button>
                     
-                    <p id="txStatus" class="mt-4 text-center text-sm font-bold h-5 text-gray-600"></p>
-
-                    <div class="mt-4 pt-4 border-t border-gray-100 text-sm text-gray-500 text-center">
-                        <p class="flex items-center justify-center">
-                            <i class="fas fa-shield-alt mr-1 text-green-500"></i> İşlemler Solana ağı üzerinden güvence altındadır.
-                        </p>
-                    </div>
+                    <p id="txStatus" class="mt-4 text-center text-sm font-bold h-10 text-gray-600 flex items-center justify-center"></p>
                 </div>
-
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. SAYFA GEÇİŞLERİ ---
         function enterExchange() {
             document.getElementById('landingPage').style.display = 'none';
-            const dashboard = document.getElementById('dashboardPage');
-            dashboard.style.display = 'flex';
-            dashboard.classList.add('fade-in');
+            document.getElementById('dashboardPage').style.display = 'flex';
+            document.getElementById('dashboardPage').classList.add('fade-in');
         }
-
         function exitExchange() {
             document.getElementById('dashboardPage').style.display = 'none';
-            const landing = document.getElementById('landingPage');
-            landing.style.display = 'flex';
-            landing.classList.add('fade-in');
+            document.getElementById('landingPage').style.display = 'flex';
+            document.getElementById('landingPage').classList.add('fade-in');
         }
 
-        // --- 2. SWAP HESAPLAYICI ---
         const solInput = document.getElementById('solInput');
         const icrOutput = document.getElementById('icrOutput');
-        const ICR_RATE = 100000;
-
         solInput.addEventListener('input', () => {
-            const solValue = parseFloat(solInput.value) || 0;
-            const icrValue = Math.floor(solValue * ICR_RATE);
-            icrOutput.value = icrValue.toLocaleString('en-US');
+            const val = parseFloat(solInput.value) || 0;
+            icrOutput.value = Math.floor(val * 100000).toLocaleString('en-US');
         });
 
-        // --- 3. FOMO (CANLI İŞLEMLER) SİSTEMİ ---
+        // Fomo Tablosu
         const fomoTableBody = document.getElementById('fomoTableBody');
-        
-        function generateRandomWallet() {
-            const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-            let res = '';
-            for(let i=0; i<4; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
-            let res2 = '';
-            for(let i=0; i<4; i++) res2 += chars.charAt(Math.floor(Math.random() * chars.length));
-            return `${res}...${res2}`;
-        }
-
         function addFomoRow() {
             const time = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second:'2-digit' });
-            const wallet = generateRandomWallet();
-            // Rastgele 0.5 ile 15 arası SOL miktarı
-            const amount = (Math.random() * 14.5 + 0.5).toFixed(2); 
-
+            const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+            let res1 = '', res2 = '';
+            for(let i=0; i<4; i++) { res1 += chars.charAt(Math.floor(Math.random() * chars.length)); res2 += chars.charAt(Math.floor(Math.random() * chars.length)); }
+            
             const tr = document.createElement('tr');
             tr.className = 'fomo-row border-b border-gray-100';
-            tr.innerHTML = `
-                <td class="px-4 py-3 font-mono text-xs text-gray-500">${time}</td>
-                <td class="px-4 py-3 font-mono font-medium text-green-600">${wallet}</td>
-                <td class="px-4 py-3 font-bold text-right text-gray-800">${amount}</td>
-            `;
-            
+            tr.innerHTML = `<td class="px-4 py-3 font-mono text-xs text-gray-500">${time}</td><td class="px-4 py-3 font-mono font-medium text-green-600">${res1}...${res2}</td><td class="px-4 py-3 font-bold text-right text-gray-800">${(Math.random() * 14.5 + 0.5).toFixed(2)}</td>`;
             fomoTableBody.prepend(tr);
-            
-            // Tabloyu 6 satırda tut
-            if(fomoTableBody.children.length > 6) {
-                fomoTableBody.removeChild(fomoTableBody.lastChild);
-            }
-            
-            // Sonraki satırın gelme süresini rastgele ayarla (3 ile 8 saniye arası)
+            if(fomoTableBody.children.length > 6) fomoTableBody.removeChild(fomoTableBody.lastChild);
             setTimeout(addFomoRow, Math.floor(Math.random() * 5000) + 3000);
         }
-        
-        // Başlangıçta 5 sahte satır oluştur
-        for(let i=0; i<5; i++) { addFomoRow(); }
+        for(let i=0; i<5; i++) addFomoRow();
 
-        // --- 4. WEB3 / SOLANA ENTEGRASYONU ---
-        const KREATOR_WALLET = "1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm"; // İlettiğin Cüzdan Adresi
+        // WEB3 SOLANA TRANSFERİ
+        const KREATOR_WALLET = "1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm"; // Senin Cüzdanın
         let userPublicKey = null;
 
         const connectBtn = document.getElementById('connectWalletBtn');
@@ -249,26 +188,20 @@
                     const resp = await window.solana.connect();
                     userPublicKey = resp.publicKey;
                     
-                    // Arayüzü güncelle
                     connectBtn.classList.add('hidden');
                     walletDisplay.classList.remove('hidden');
                     const pubKeyStr = userPublicKey.toString();
                     walletDisplay.innerText = pubKeyStr.slice(0, 4) + '...' + pubKeyStr.slice(-4);
                     
-                    // Butonu Aktifleştir
                     buyBtn.disabled = false;
                     buyBtn.className = "w-full paribu-green hover:bg-green-600 text-white font-extrabold py-4 rounded-xl text-lg transition shadow-lg shadow-green-500/30";
                     buyBtn.innerText = "ICARUS SATIN AL";
-                    txStatus.innerText = "Cüzdan bağlandı, işleme hazır.";
-                    txStatus.className = "mt-4 text-center text-sm font-bold h-5 text-green-500";
-                    
+                    txStatus.innerHTML = "<span class='text-green-500'>Cüzdan bağlandı.</span>";
                 } catch (err) {
-                    txStatus.innerText = "Bağlantı reddedildi.";
-                    txStatus.className = "mt-4 text-center text-sm font-bold h-5 text-red-500";
+                    txStatus.innerHTML = "<span class='text-red-500'>Bağlantı reddedildi.</span>";
                 }
             } else {
-                alert("Lütfen Phantom Cüzdan eklentisini kurun!");
-                window.open("https://phantom.app/", "_blank");
+                alert("Phantom Cüzdan bulunamadı!");
             }
         });
 
@@ -277,18 +210,22 @@
             
             const amount = parseFloat(solInput.value);
             if(isNaN(amount) || amount <= 0) {
-                txStatus.innerText = "Geçerli bir miktar girin.";
-                txStatus.className = "mt-4 text-center text-sm font-bold h-5 text-red-500";
+                txStatus.innerHTML = "<span class='text-red-500'>Lütfen geçerli bir miktar girin.</span>";
+                return;
+            }
+
+            // KENDİNE GÖNDERME KONTROLÜ
+            if (userPublicKey.toString() === KREATOR_WALLET) {
+                txStatus.innerHTML = "<span class='text-red-600 text-xs'>HATA: Kendi cüzdanınıza transfer yapamazsınız.<br>Lütfen farklı bir cüzdan bağlayın.</span>";
                 return;
             }
 
             try {
-                buyBtn.innerText = "ONAY BEKLENİYOR...";
+                buyBtn.innerText = "PHANTOM ONAYI...";
                 buyBtn.classList.add('opacity-75', 'cursor-wait');
-                txStatus.innerText = "Phantom cüzdanınızdan onay verin...";
-                txStatus.className = "mt-4 text-center text-sm font-bold h-5 text-yellow-600";
+                txStatus.innerHTML = "<span class='text-yellow-600'>Phantom cüzdanınızdan onay verin...</span>";
 
-                const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'));
+                const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'), 'confirmed');
                 
                 const transaction = new solanaWeb3.Transaction().add(
                     solanaWeb3.SystemProgram.transfer({
@@ -302,24 +239,30 @@
                 transaction.recentBlockhash = blockhash;
                 transaction.feePayer = userPublicKey;
 
+                // En güncel ve stabil gönderim metodu
                 const { signature } = await window.solana.signAndSendTransaction(transaction);
                 
-                txStatus.innerText = "İşlem Ağa Gönderildi! Onaylanıyor...";
-                txStatus.className = "mt-4 text-center text-sm font-bold h-5 text-blue-500";
+                txStatus.innerHTML = "<span class='text-blue-500'>İşlem Ağa Gönderildi! Onaylanıyor...</span>";
                 
-                await connection.confirmTransaction(signature);
+                await connection.confirmTransaction(signature, 'confirmed');
                 
-                txStatus.innerText = "BAŞARILI! ICARUS hesabınıza tanımlanacaktır.";
-                txStatus.className = "mt-4 text-center text-sm font-bold h-5 text-green-600";
+                txStatus.innerHTML = "<span class='text-green-600'>BAŞARILI! ICARUS hesabınıza tanımlanacaktır.</span>";
                 buyBtn.innerText = "TEKRAR SATIN AL";
                 buyBtn.classList.remove('opacity-75', 'cursor-wait');
                 
             } catch (err) {
                 console.error(err);
-                txStatus.innerText = "İşlem iptal edildi veya başarısız.";
-                txStatus.className = "mt-4 text-center text-sm font-bold h-5 text-red-500";
                 buyBtn.innerText = "ICARUS SATIN AL";
                 buyBtn.classList.remove('opacity-75', 'cursor-wait');
+                
+                // DETAYLI HATA YAKALAMA
+                if (err.message && err.message.includes("insufficient lamports")) {
+                    txStatus.innerHTML = "<span class='text-red-500 text-xs'>HATA: Yetersiz bakiye! Cüzdanınızda " + amount + " SOL bulunmuyor.</span>";
+                } else if (err.message && err.message.includes("User rejected")) {
+                    txStatus.innerHTML = "<span class='text-red-500'>İşlemi reddettiniz.</span>";
+                } else {
+                    txStatus.innerHTML = "<span class='text-red-500'>İşlem başarısız oldu. Cüzdan bakiyenizi kontrol edin.</span>";
+                }
             }
         });
     </script>
