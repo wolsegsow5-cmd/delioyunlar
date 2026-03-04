@@ -370,13 +370,20 @@
             alert("✅ Referans linkiniz başarıyla kopyalandı!\nArkadaşlarınızla paylaşmaya hazırsınız.");
         }
 
-        // Canlı Piyasa ve Grafik (Binance API)
+        // Canlı Piyasa ve Grafik (Binance API) Güncellenmiş Hali
         const symbolNames = { "BTCUSDT":"Bitcoin", "ETHUSDT":"Ethereum", "SOLUSDT":"Solana", "XRPUSDT":"Ripple", "DOGEUSDT":"Dogecoin", "AVAXUSDT":"Avalanche" };
         async function fetchLivePrices() {
             try {
-                const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","AVAXUSDT"]`;
-                const response = await fetch(url); const data = await response.json();
-                const tbody = document.getElementById('marketTableBody'); tbody.innerHTML = '';
+                // Tarayıcıların engellememesi için sembolleri özel bir formata (encodeURIComponent) çeviriyoruz
+                const symbols = encodeURIComponent('["BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","AVAXUSDT"]');
+                const url = `https://api.binance.com/api/v3/ticker/24hr?symbols=${symbols}`;
+                
+                const response = await fetch(url); 
+                if (!response.ok) throw new Error("API yanıt vermedi");
+                
+                const data = await response.json();
+                const tbody = document.getElementById('marketTableBody'); 
+                tbody.innerHTML = '';
                 
                 data.forEach(coin => {
                     const price = parseFloat(coin.lastPrice), change = parseFloat(coin.priceChangePercent), isPos = change >= 0;
@@ -393,7 +400,10 @@
                     `;
                     tbody.appendChild(tr);
                 });
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error("Veri çekme hatası:", err); 
+                document.getElementById('marketTableBody').innerHTML = '<tr><td colspan="3" class="text-center py-10 text-red-500">Bağlantı hatası: Fiyatlar yüklenemedi.</td></tr>';
+            }
         }
         setInterval(() => { if(document.getElementById('marketsPage').style.display !== 'none') fetchLivePrices(); }, 5000);
 
