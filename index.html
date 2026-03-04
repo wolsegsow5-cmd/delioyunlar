@@ -24,6 +24,10 @@
         }
         .animate-marquee { display: inline-block; padding-left: 100%; animation: marquee 25s linear infinite; }
         .animate-marquee:hover { animation-play-state: paused; }
+        
+        /* Accordion Ok Gizleme */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="text-gray-900 antialiased overflow-x-hidden">
@@ -51,7 +55,7 @@
         </div>
     </nav>
 
-    <div id="landingPage" class="min-h-[90vh] flex flex-col bg-white fade-in pb-20">
+    <div id="landingPage" class="min-h-[90vh] flex flex-col bg-white fade-in pb-0">
         
         <div class="w-full max-w-6xl mx-auto pt-8 px-4 md:px-8">
             <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group">
@@ -69,20 +73,137 @@
             <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-[#1E2225]">
                 Yarının dünyası<span class="paribu-green-text">.</span>
             </h1>
-            <p class="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl">
+            <p class="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl">
                 Kriptoyu keşfedin.<br>İhtiyacınız olan her şey tek uygulamada.
             </p>
-            <div class="flex space-x-4">
-                <button onclick="switchTab('dashboardPage')" class="paribu-green text-white font-bold py-4 px-10 rounded-lg text-lg hover:bg-green-600 transition shadow-lg">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="switchTab('dashboardPage')" class="paribu-green text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-green-600 transition shadow-lg">
                     Kolay Al/Sat
                 </button>
-                <button onclick="switchTab('marketsPage')" class="bg-white border-2 border-gray-200 text-gray-700 font-bold py-4 px-10 rounded-lg text-lg hover:border-gray-300 transition shadow-sm">
+                <button onclick="switchTab('marketsPage')" class="bg-white border-2 border-gray-200 text-gray-700 font-bold py-4 px-8 rounded-lg text-lg hover:border-gray-300 transition shadow-sm">
                     Piyasaları İncele
                 </button>
+                <a href="#" class="bg-gray-800 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-gray-900 transition shadow-lg flex items-center">
+                    <i class="fas fa-file-pdf mr-2 text-red-400"></i> Whitepaper
+                </a>
             </div>
         </div>
 
-        <div class="mt-20 w-full max-w-4xl mx-auto bg-gray-50 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between border border-gray-100 shadow-sm">
+        <div class="mt-24 w-full bg-gray-50 py-16 border-t border-b border-gray-100">
+            <div class="max-w-6xl mx-auto px-4 md:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6">Geleceğin Merkeziyetsiz Ekosistemine Kanat Açın</h2>
+                <p class="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                    Merkeziyetsiz finansın (DeFi) kurallarını yeniden yazıyoruz. Solana ağının sunduğu benzersiz hız ve düşük işlem ücretlerini arkasına alan <strong>ICARUS</strong>, yatırımcısına şeffaf, güvenli ve topluluk odaklı bir büyüme modeli sunuyor.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                        <div class="text-4xl mb-4">🔒</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">%100 Kilitli Likidite</h3>
+                        <p class="text-gray-500 text-sm">Yatırımcı güvenliği her şeyden önce gelir. Likidite havuzumuz tamamen kilitlenmiş olup, "rug pull" riski ortadan kaldırılmıştır.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                        <div class="text-4xl mb-4">🔥</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">Sürekli Yakım Mekanizması</h3>
+                        <p class="text-gray-500 text-sm">Her işlemde gerçekleşen otomatik token yakımı (burn) sayesinde deflasyonist bir yapı sunar. Arz azalırken değer korunur.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                        <div class="text-4xl mb-4">🤝</div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-800">Topluluk Odaklı</h3>
+                        <p class="text-gray-500 text-sm">ICARUS'un rotasını kurucular değil, topluluk belirler. Tüm büyük kararlar şeffaf oylama ile alınır.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 md:px-8 py-20 grid lg:grid-cols-2 gap-16">
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-b-4 border-[#8DC63F] inline-block pb-2">Tokenomics</h2>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="mb-4 flex justify-between items-center border-b border-gray-100 pb-2">
+                        <span class="font-bold text-gray-600">Toplam Arz</span>
+                        <span class="font-extrabold text-gray-900">1,000,000,000 ICR</span>
+                    </div>
+                    <ul class="space-y-4 mt-6">
+                        <li class="flex items-center">
+                            <div class="w-4 h-4 rounded-full bg-green-500 mr-3"></div>
+                            <span class="flex-grow text-gray-700 font-medium">Likidite Havuzu</span>
+                            <span class="font-bold text-gray-900">%40</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-4 h-4 rounded-full bg-red-500 mr-3"></div>
+                            <span class="flex-grow text-gray-700 font-medium">Otomatik Yakım (Burn)</span>
+                            <span class="font-bold text-gray-900">%30</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-4 h-4 rounded-full bg-blue-500 mr-3"></div>
+                            <span class="flex-grow text-gray-700 font-medium">Topluluk / Airdrop</span>
+                            <span class="font-bold text-gray-900">%20</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-4 h-4 rounded-full bg-yellow-400 mr-3"></div>
+                            <span class="flex-grow text-gray-700 font-medium">Takım & Pazarlama</span>
+                            <span class="font-bold text-gray-900">%10</span>
+                        </li>
+                    </ul>
+                    <div class="w-full h-4 flex rounded-full overflow-hidden mt-6">
+                        <div class="bg-green-500 w-[40%]"></div>
+                        <div class="bg-red-500 w-[30%]"></div>
+                        <div class="bg-blue-500 w-[20%]"></div>
+                        <div class="bg-yellow-400 w-[10%]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-b-4 border-[#8DC63F] inline-block pb-2">Yol Haritası (2026)</h2>
+                <div class="relative border-l-2 border-green-200 ml-3 space-y-8">
+                    <div class="relative pl-6">
+                        <div class="absolute w-4 h-4 bg-[#8DC63F] rounded-full -left-[9px] top-1 border-2 border-white"></div>
+                        <h4 class="font-bold text-gray-900 text-lg">1. Çeyrek: Temellerin Atılması</h4>
+                        <p class="text-sm text-gray-500 mt-1">Akıllı kontrat geliştirilmesi, web sitesi lansmanı ve topluluk inşası. Kilitli likidite entegrasyonu.</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-1 border-2 border-white"></div>
+                        <h4 class="font-bold text-gray-900 text-lg">2. Çeyrek: Büyüme ve DEX Lansmanı</h4>
+                        <p class="text-sm text-gray-500 mt-1">Raydium/Jupiter listelemeleri, CoinGecko & CoinMarketCap başvuruları, 10.000+ cüzdan sahibine ulaşma hedefi.</p>
+                    </div>
+                    <div class="relative pl-6">
+                        <div class="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-1 border-2 border-white"></div>
+                        <h4 class="font-bold text-gray-900 text-lg">3. Çeyrek: Ekosistem Genişlemesi</h4>
+                        <p class="text-sm text-gray-500 mt-1">Staking platformunun açılışı, ilk Merkezi Borsa (CEX) listelemeleri ve mobil uygulama Beta sürümü.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 md:px-8 py-10">
+            <h2 class="text-3xl font-extrabold text-center text-gray-800 mb-10">Sıkça Sorulan Sorular</h2>
+            <div class="space-y-4">
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 p-4 cursor-pointer">
+                    <summary class="font-bold text-gray-800 flex justify-between items-center outline-none">
+                        ICARUS Token'ı nasıl satın alabilirim?
+                        <span class="text-green-500 group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="text-gray-500 text-sm mt-3 pt-3 border-t border-gray-100">Solana destekli bir cüzdan (örneğin Phantom) bağlayarak yukarıdaki "Kolay Al/Sat" menüsünden veya doğrudan sitemizde yer alan kontrat adresine SOL göndererek işlem yapabilirsiniz.</p>
+                </details>
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 p-4 cursor-pointer">
+                    <summary class="font-bold text-gray-800 flex justify-between items-center outline-none">
+                        İşlemlerde (Slippage) kayma toleransı kaç olmalı?
+                        <span class="text-green-500 group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="text-gray-500 text-sm mt-3 pt-3 border-t border-gray-100">Otomatik yakım mekanizması sebebiyle alım satım işlemlerinizde Slippage (Kayma Toleransı) oranını %3 ile %5 arasında ayarlamanızı öneririz.</p>
+                </details>
+                <details class="group bg-white rounded-xl shadow-sm border border-gray-100 p-4 cursor-pointer">
+                    <summary class="font-bold text-gray-800 flex justify-between items-center outline-none">
+                        Akıllı kontrat adresi (Contract Address) nedir?
+                        <span class="text-green-500 group-open:rotate-180 transition-transform duration-300"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="text-gray-500 text-sm mt-3 pt-3 border-t border-gray-100 font-mono bg-gray-50 p-2 rounded">1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm</p>
+                </details>
+            </div>
+        </div>
+
+        <div class="my-10 w-full max-w-4xl mx-auto bg-gray-50 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between border border-gray-100 shadow-sm">
             <div class="text-left mb-6 md:mb-0">
                 <h3 class="text-3xl font-extrabold text-gray-800 mb-2">Icarus hep yanınızda.</h3>
                 <p class="text-gray-500 font-medium">İstediğiniz an, istediğiniz yerde yatırım yapın.<br>Çok yakında App Store ve Google Play'de.</p>
@@ -98,6 +219,33 @@
                 </button>
             </div>
         </div>
+
+        <div class="max-w-6xl mx-auto px-4 md:px-8 mb-16">
+            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                <h4 class="text-red-700 font-extrabold mb-2 flex items-center"><i class="fas fa-exclamation-triangle mr-2"></i> YASAL UYARI VE RİSK BİLDİRİMİ (DYOR)</h4>
+                <p class="text-red-600/80 text-sm leading-relaxed text-justify">
+                    Bu web sitesinde yer alan hiçbir bilgi, materyal, grafik veya yönlendirme kesinlikle <strong>YATIRIM TAVSİYESİ DEĞİLDİR.</strong> Kripto para piyasaları son derece volatiliteli ve yüksek risk içeren piyasalardır. Yapacağınız tüm işlemler ve yatırımlar tamamen kendi sorumluluğunuzdadır. Icarus Protocol, oluşabilecek olası finansal kayıplardan sorumlu tutulamaz. Lütfen herhangi bir yatırım yapmadan önce kendi araştırmanızı (DYOR) yapın ve yalnızca kaybetmeyi göze alabileceğiniz miktarlarla işlem gerçekleştirin.
+                </p>
+            </div>
+        </div>
+
+        <footer class="bg-[#1E2225] text-gray-400 py-10 mt-auto border-t border-gray-800">
+            <div class="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <div class="text-2xl font-extrabold tracking-tighter text-[#8DC63F] mb-2">ICARUS PROTOCOL</div>
+                    <p class="text-xs">Yeni Nesil Merkeziyetsiz Finans Ekosistemi.</p>
+                </div>
+                <div class="flex space-x-6 text-xl">
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="max-w-6xl mx-auto px-4 md:px-8 mt-8 text-center text-xs text-gray-600 border-t border-gray-800 pt-6">
+                &copy; 2026 Icarus Protocol. Tüm Hakları Saklıdır.
+            </div>
+        </footer>
     </div>
 
     <div id="marketsPage" class="hidden min-h-[90vh] flex-col container mx-auto px-4 py-6">
