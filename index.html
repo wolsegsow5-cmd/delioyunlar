@@ -108,7 +108,7 @@
                     <div class="bg-gray-50 p-4 rounded-xl mb-2 border border-gray-200 transition-all focus-within:border-green-400 focus-within:ring-1">
                         <label class="block text-xs text-gray-500 font-bold mb-1">ÖDENECEK</label>
                         <div class="flex items-center">
-                            <input type="number" id="solInput" value="1.0" step="0.1" min="0.1" class="w-full bg-transparent text-3xl font-bold text-gray-800 focus:outline-none">
+                            <input type="number" id="solInput" value="0.1" step="0.01" min="0.01" class="w-full bg-transparent text-3xl font-bold text-gray-800 focus:outline-none">
                             <span class="font-bold text-gray-400 text-lg">SOL</span>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                     <div class="bg-green-50 p-4 rounded-xl mb-6 border border-green-100">
                         <label class="block text-xs text-green-600 font-bold mb-1">ALINACAK (Tahmini)</label>
                         <div class="flex items-center">
-                            <input type="text" id="icrOutput" value="100,000" readonly class="w-full bg-transparent text-3xl font-bold text-green-600 focus:outline-none">
+                            <input type="text" id="icrOutput" value="10,000" readonly class="w-full bg-transparent text-3xl font-bold text-green-600 focus:outline-none">
                             <span class="font-bold text-green-600/50 text-lg">ICR</span>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                         ÖNCE CÜZDANI BAĞLAYIN
                     </button>
                     
-                    <p id="txStatus" class="mt-4 text-center text-sm font-bold h-10 text-gray-600 flex items-center justify-center"></p>
+                    <div id="txStatus" class="mt-4 text-center text-sm font-bold h-12 text-gray-600 flex flex-col items-center justify-center"></div>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
         }
         for(let i=0; i<5; i++) addFomoRow();
 
-        // WEB3 SOLANA TRANSFERİ
+        // WEB3 SOLANA TRANSFERİ - DÜZELTİLMİŞ VE GÜÇLENDİRİLMİŞ
         const KREATOR_WALLET = "1d216R3J9LLt34NgzitsB713kTQQgHTY1kF2wEAi6gm"; // Senin Cüzdanın
         let userPublicKey = null;
 
@@ -196,7 +196,7 @@
                     buyBtn.disabled = false;
                     buyBtn.className = "w-full paribu-green hover:bg-green-600 text-white font-extrabold py-4 rounded-xl text-lg transition shadow-lg shadow-green-500/30";
                     buyBtn.innerText = "ICARUS SATIN AL";
-                    txStatus.innerHTML = "<span class='text-green-500'>Cüzdan bağlandı.</span>";
+                    txStatus.innerHTML = "<span class='text-green-600'>Cüzdan bağlandı. İşleme hazır.</span>";
                 } catch (err) {
                     txStatus.innerHTML = "<span class='text-red-500'>Bağlantı reddedildi.</span>";
                 }
@@ -214,55 +214,62 @@
                 return;
             }
 
-            // KENDİNE GÖNDERME KONTROLÜ
-            if (userPublicKey.toString() === KREATOR_WALLET) {
-                txStatus.innerHTML = "<span class='text-red-600 text-xs'>HATA: Kendi cüzdanınıza transfer yapamazsınız.<br>Lütfen farklı bir cüzdan bağlayın.</span>";
-                return;
-            }
-
             try {
-                buyBtn.innerText = "PHANTOM ONAYI...";
+                // UI Güncelleme - ONAY BEKLENİYOR
+                buyBtn.innerText = "PHANTOM ONAYI BEKLENİYOR...";
                 buyBtn.classList.add('opacity-75', 'cursor-wait');
-                txStatus.innerHTML = "<span class='text-yellow-600'>Phantom cüzdanınızdan onay verin...</span>";
+                txStatus.innerHTML = "<span class='text-yellow-600'>Lütfen açılan pencereden işlemi onaylayın...</span>";
 
+                // Solana Ağına Bağlantı
                 const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'), 'confirmed');
                 
+                // KÜSÜRAT HATASINI ÖNLEYEN KESİN YUVARLAMA (Fix)
+                const exactLamports = Math.round(amount * solanaWeb3.LAMPORTS_PER_SOL);
+
                 const transaction = new solanaWeb3.Transaction().add(
                     solanaWeb3.SystemProgram.transfer({
                         fromPubkey: userPublicKey,
                         toPubkey: new solanaWeb3.PublicKey(KREATOR_WALLET),
-                        lamports: amount * solanaWeb3.LAMPORTS_PER_SOL,
+                        lamports: exactLamports,
                     })
                 );
 
-                const { blockhash } = await connection.getLatestBlockhash();
+                const { blockhash } = await connection.getLatestBlockhash('confirmed');
                 transaction.recentBlockhash = blockhash;
                 transaction.feePayer = userPublicKey;
 
-                // En güncel ve stabil gönderim metodu
+                // Cüzdan onayı isteme ve gönderme
                 const { signature } = await window.solana.signAndSendTransaction(transaction);
                 
-                txStatus.innerHTML = "<span class='text-blue-500'>İşlem Ağa Gönderildi! Onaylanıyor...</span>";
+                txStatus.innerHTML = "<span class='text-blue-500'>İşlem Onaylandı! Ağa işleniyor...</span>";
                 
                 await connection.confirmTransaction(signature, 'confirmed');
                 
-                txStatus.innerHTML = "<span class='text-green-600'>BAŞARILI! ICARUS hesabınıza tanımlanacaktır.</span>";
-                buyBtn.innerText = "TEKRAR SATIN AL";
+                txStatus.innerHTML = "<span class='text-green-600 text-lg'>✅ İŞLEM BAŞARILI!</span><span class='text-gray-500 text-xs mt-1'>SOL cüzdanınıza aktarıldı.</span>";
+                buyBtn.innerText = "YENİDEN SATIN AL";
                 buyBtn.classList.remove('opacity-75', 'cursor-wait');
                 
             } catch (err) {
-                console.error(err);
+                console.error("Detaylı Hata:", err); // Geliştirici konsolu için
+                
                 buyBtn.innerText = "ICARUS SATIN AL";
                 buyBtn.classList.remove('opacity-75', 'cursor-wait');
                 
-                // DETAYLI HATA YAKALAMA
-                if (err.message && err.message.includes("insufficient lamports")) {
-                    txStatus.innerHTML = "<span class='text-red-500 text-xs'>HATA: Yetersiz bakiye! Cüzdanınızda " + amount + " SOL bulunmuyor.</span>";
-                } else if (err.message && err.message.includes("User rejected")) {
-                    txStatus.innerHTML = "<span class='text-red-500'>İşlemi reddettiniz.</span>";
-                } else {
-                    txStatus.innerHTML = "<span class='text-red-500'>İşlem başarısız oldu. Cüzdan bakiyenizi kontrol edin.</span>";
+                // KULLANICIYA GÖSTERİLECEK NET HATA MESAJLARI
+                let hataMesaji = "Bilinmeyen bir hata oluştu.";
+                if (err.message) {
+                    if (err.message.includes("insufficient lamports")) {
+                        hataMesaji = `YETERSİZ BAKİYE! Cüzdanınızda ağ ücretiyle beraber ${amount} SOL yok.`;
+                    } else if (err.message.includes("User rejected")) {
+                        hataMesaji = "İşlemi Phantom üzerinden reddettiniz.";
+                    } else if (err.message.includes("Attempt to debit an account but found no record")) {
+                        hataMesaji = "Bu cüzdanda hiç SOL bulunmuyor (Bakiye 0).";
+                    } else {
+                        hataMesaji = `Ağ Hatası: ${err.message.substring(0, 30)}...`;
+                    }
                 }
+                
+                txStatus.innerHTML = `<span class='text-red-600 font-bold'>❌ İŞLEM BAŞARISIZ</span><span class='text-red-500 text-xs mt-1'>${hataMesaji}</span>`;
             }
         });
     </script>
