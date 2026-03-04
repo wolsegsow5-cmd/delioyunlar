@@ -288,6 +288,12 @@
             </div>
 
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col h-fit sticky top-24">
+                
+                <div id="userBalanceBox" class="hidden bg-green-50 border border-green-200 text-green-800 px-4 py-4 rounded-xl mb-6 text-center shadow-inner">
+                    <p class="text-xs font-bold uppercase mb-1 text-green-600">Cüzdandaki ICARUS Bakiyeniz</p>
+                    <p class="text-3xl font-extrabold text-green-700"><span id="userIcrBalance">0</span> <span class="text-lg">ICR</span></p>
+                </div>
+
                 <h2 class="text-2xl font-extrabold mb-6 border-b border-gray-100 pb-3 text-gray-800">Kolay Alış</h2>
                 
                 <div class="bg-gray-50 p-4 rounded-xl mb-2 border border-gray-200 focus-within:border-green-400 focus-within:ring-1">
@@ -313,7 +319,7 @@
                 <button id="buyIcarusBtn" disabled class="w-full bg-gray-300 text-gray-500 font-bold py-4 rounded-xl text-lg transition shadow-sm cursor-not-allowed mb-3">
                     ÖNCE CÜZDANI BAĞLAYIN
                 </button>
-                <div id="txStatus" class="text-center text-sm font-bold h-8 flex flex-col items-center justify-center"></div>
+                <div id="txStatus" class="text-center text-sm font-bold min-h-8 flex flex-col items-center justify-center mb-2"></div>
 
                 <div class="relative flex py-4 items-center">
                     <div class="flex-grow border-t border-gray-200"></div>
@@ -360,7 +366,7 @@
                 </div>
             </div>
             <div class="px-6 py-4 bg-green-50 border-t border-green-100 text-xs text-green-700 font-medium">
-                <i class="fas fa-info-circle mr-1"></i> Başarıyla satın aldığınız ICARUS tokenları yukarıda listelenmektedir. Akıllı kontrat dağıtımı başladığında bu tokenlar otomatik olarak Phantom cüzdanınıza yatırılacaktır.
+                <i class="fas fa-info-circle mr-1"></i> Başarıyla satın aldığınız ICARUS tokenları yukarıda listelenmektedir. Akıllı kontrat dağıtımı başladığında bu tokenlar cüzdanınıza otomatik yansıyacaktır.
             </div>
         </div>
     </div>
@@ -386,14 +392,13 @@
             window.scrollTo(0, 0); 
         }
 
-        // Cüzdan Arayüzü Güncelleme
+        // Bakiye ve Cüzdan Arayüzü Güncelleme
         function updateWalletUI() {
             let balance = parseInt(localStorage.getItem('icr_balance')) || 0;
-            document.getElementById('walletIcrBalance').innerText = balance.toLocaleString('en-US');
-            // Görsel amaçlı tahmini bir dolar değeri (Örn: 1 ICR = $0.001)
-            document.getElementById('usdEquivalent').innerText = (balance * 0.001).toFixed(2);
+            document.getElementById('userIcrBalance').innerText = balance.toLocaleString('en-US'); // Dashboard için
+            document.getElementById('walletIcrBalance').innerText = balance.toLocaleString('en-US'); // Cüzdan sekmesi için
+            document.getElementById('usdEquivalent').innerText = (balance * 0.001).toFixed(2); // Sanal dolar karşılığı
         }
-        updateWalletUI();
 
         // Kopyalama İşlemleri
         function toggleManualTransfer() { document.getElementById('manualTransferBox').classList.toggle('hidden'); }
@@ -406,10 +411,10 @@
         function copyRefLink() {
             const copyText = document.getElementById("refLink");
             copyText.select(); navigator.clipboard.writeText(copyText.value);
-            alert("✅ Referans linkiniz başarıyla kopyalandı!\nArkadaşlarınızla paylaşmaya hazırsınız.");
+            alert("✅ Referans linkiniz başarıyla kopyalandı!");
         }
 
-        // Canlı Piyasa ve Grafik (Binance API) - Beyaz Ekran Sorunu Düzeltildi
+        // Canlı Piyasa ve Grafik (Binance API) 
         const symbolNames = { "BTCUSDT":"Bitcoin", "ETHUSDT":"Ethereum", "SOLUSDT":"Solana", "XRPUSDT":"Ripple", "DOGEUSDT":"Dogecoin", "AVAXUSDT":"Avalanche" };
         async function fetchLivePrices() {
             try {
@@ -451,13 +456,14 @@
             new TradingView.widget({ "autosize": true, "symbol": "BINANCE:" + symbol, "interval": "60", "timezone": "Europe/Istanbul", "theme": "light", "style": "1", "locale": "tr", "enable_publishing": false, "backgroundColor": "#ffffff", "hide_top_toolbar": false, "container_id": "tv_dynamic_inner" });
         }
 
-        // Web3 Swap ve Solana Transferi Hesaplama
+        // Değer Hesaplama (1 SOL = 100,000 ICR)
         const solInput = document.getElementById('solInput'), icrOutput = document.getElementById('icrOutput');
         solInput.addEventListener('input', () => {
             const val = parseFloat(solInput.value) || 0; 
             icrOutput.value = Math.floor(val * 100000).toLocaleString('en-US');
         });
 
+        // WEB3 CÜZDAN BAĞLANTISI (Sadece Görsel/Log in)
         let userPublicKey = null;
         const connectBtn = document.getElementById('connectWalletBtn'), buyBtn = document.getElementById('buyIcarusBtn');
         const walletDisplay = document.getElementById('walletAddressDisplay'), txStatus = document.getElementById('txStatus');
@@ -465,58 +471,61 @@
         connectBtn.addEventListener('click', async () => {
             if (window.solana && window.solana.isPhantom) {
                 try {
-                    const resp = await window.solana.connect(); userPublicKey = resp.publicKey;
-                    connectBtn.classList.add('hidden'); walletDisplay.classList.remove('hidden');
+                    const resp = await window.solana.connect(); 
+                    userPublicKey = resp.publicKey;
+                    
+                    connectBtn.classList.add('hidden'); 
+                    walletDisplay.classList.remove('hidden');
                     walletDisplay.innerText = userPublicKey.toString().slice(0, 4) + '...' + userPublicKey.toString().slice(-4);
-                    buyBtn.disabled = false; buyBtn.className = "w-full paribu-green hover:bg-green-600 text-white font-extrabold py-4 rounded-xl text-lg transition shadow-lg"; buyBtn.innerText = "ICARUS SATIN AL";
-                } catch (err) { alert("Bağlantı reddedildi."); }
-            } else { alert("Phantom Cüzdan kurun!"); }
+                    
+                    buyBtn.disabled = false; 
+                    buyBtn.className = "w-full paribu-green hover:bg-green-600 text-white font-extrabold py-4 rounded-xl text-lg transition shadow-lg"; 
+                    buyBtn.innerText = "ICARUS SATIN AL";
+
+                    // Bağlanınca Bakiye Kutusunu Göster ve Değerleri Yükle
+                    document.getElementById('userBalanceBox').classList.remove('hidden');
+                    updateWalletUI();
+
+                } catch (err) { alert("Cüzdan bağlantısı reddedildi."); }
+            } else { alert("Lütfen tarayıcınıza Phantom Cüzdan eklentisini kurun!"); }
         });
 
-        // TRANSFER VE BAKİYE KAYDETME İŞLEMİ
+        // SANAL (SİMÜLASYON) SATIN ALMA İŞLEMİ
         buyBtn.addEventListener('click', async () => {
             if (!userPublicKey) return;
             const amount = parseFloat(solInput.value);
             
-            if (userPublicKey.toString() === KREATOR_WALLET) { 
-                txStatus.innerHTML = "<span class='text-red-600 font-bold'>HATA: Kendi cüzdanınıza transfer yapamazsınız. <br>Lütfen alıcı cüzdandan farklı bir hesap bağlayın.</span>"; 
+            if (amount <= 0 || isNaN(amount)) {
+                txStatus.innerHTML = "<span class='text-red-600 font-bold'>Geçerli bir miktar girin.</span>";
                 return; 
             }
 
             try {
-                buyBtn.innerText = "CÜZDANDAN ONAYLAYIN..."; 
+                // Yükleniyor Animasyonu
+                buyBtn.innerText = "İŞLENİYOR..."; 
                 buyBtn.classList.add('opacity-75', 'cursor-wait');
-                txStatus.innerHTML = "<span class='text-gray-500'>Phantom cüzdanınızdan işleme onay verin...</span>";
+                txStatus.innerHTML = "<span class='text-blue-500 font-bold'><i class='fas fa-spinner fa-spin mr-2'></i>Ağa İşleniyor, Lütfen Bekleyin...</span>";
 
-                const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'), 'confirmed');
-                const transaction = new solanaWeb3.Transaction().add(
-                    solanaWeb3.SystemProgram.transfer({ fromPubkey: userPublicKey, toPubkey: new solanaWeb3.PublicKey(KREATOR_WALLET), lamports: Math.round(amount * solanaWeb3.LAMPORTS_PER_SOL) })
-                );
-                const { blockhash } = await connection.getLatestBlockhash('confirmed');
-                transaction.recentBlockhash = blockhash; 
-                transaction.feePayer = userPublicKey;
+                // Gerçek işlem yapılmıyor, sadece 2 saniye bekletiliyor (Simülasyon)
+                await new Promise(resolve => setTimeout(resolve, 2000));
                 
-                // Gerçek Solana Transferi
-                const { signature } = await window.solana.signAndSendTransaction(transaction);
-                
-                txStatus.innerHTML = "<span class='text-blue-500'>Ağa İşleniyor...</span>";
-                await connection.confirmTransaction(signature, 'confirmed');
-                
-                // İşlem Başarılıysa
-                txStatus.innerHTML = "<span class='text-green-600 font-bold'>✅ İŞLEM BAŞARILI! Cüzdan sekmesini kontrol edin.</span>";
+                // Başarılı Mesajı
+                txStatus.innerHTML = "<span class='text-green-600 font-bold'>✅ İŞLEM BAŞARILI! <br> Bakiye cüzdanınıza eklendi.</span>";
                 buyBtn.innerText = "YENİDEN SATIN AL"; 
                 buyBtn.classList.remove('opacity-75', 'cursor-wait');
 
-                // Bakiyeye Ekle ve Kaydet
+                // Bakiyeye Ekle ve Tarayıcıya Kaydet
                 const boughtIcr = parseInt(icrOutput.value.replace(/,/g, ''));
                 let currentBalance = parseInt(localStorage.getItem('icr_balance')) || 0;
                 localStorage.setItem('icr_balance', currentBalance + boughtIcr);
+                
+                // Ekranda Hemen Güncelle
                 updateWalletUI();
 
             } catch (err) {
                 buyBtn.innerText = "ICARUS SATIN AL"; 
                 buyBtn.classList.remove('opacity-75', 'cursor-wait');
-                txStatus.innerHTML = `<span class='text-red-600 font-bold'>❌ İŞLEM BAŞARISIZ <br> (Yetersiz bakiye veya iptal edildi)</span>`;
+                txStatus.innerHTML = `<span class='text-red-600 font-bold'>❌ İŞLEM BAŞARISIZ</span>`;
             }
         });
     </script>
